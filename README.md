@@ -67,4 +67,4 @@ Current stable version is [1.7.0](https://github.com/geosolutions-it/geoserver-m
 The work on this library has been initiated by GeoSolutions. Over the years it has been funded by various organizations like UN FAO, German Space Agency (DLR) and others.
 
 ## Note
-This repository frok by [geosolutions-it/geoserver-manager](https://github.com/geosolutions-it/geoserver-manager)
+This repository fork by [geosolutions-it/geoserver-manager](https://github.com/geosolutions-it/geoserver-manager)
