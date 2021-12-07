@@ -264,6 +264,11 @@
         <!-- 编译时的编码 -->
         <maven.compiler.encoding>UTF-8</maven.compiler.encoding>
         <slf4j.version>1.5.11</slf4j.version>
+        <commons-io.version>2.0.1</commons-io.version>
+        <commons-httpclient.version>3.1</commons-httpclient.version>
+        <jdom.version>1.1</jdom.version>
+        <json.version>2.4</json.version>
+        <restlet.version>1.1.10_3</restlet.version>
     </properties>
 
     <dependencies>
@@ -271,13 +276,13 @@
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-            <version>2.0.1</version>
+            <version>${commons-io.version}</version>
         </dependency>
 
         <dependency>
             <groupId>commons-httpclient</groupId>
             <artifactId>commons-httpclient</artifactId>
-            <version>3.1</version>
+            <version>${commons-httpclient.version}</version>
             <exclusions>
                 <exclusion>
                     <groupId>commons-logging</groupId>
@@ -289,20 +294,20 @@
         <dependency>
             <groupId>jdom</groupId>
             <artifactId>jdom</artifactId>
-            <version>1.1</version>
+            <version>${jdom.version}</version>
         </dependency>
 
         <dependency>
             <groupId>net.sf.json-lib</groupId>
             <artifactId>json-lib</artifactId>
-            <version>2.4</version>
+            <version>${json.version}</version>
             <classifier>jdk15</classifier>
         </dependency>
 
         <dependency>
             <groupId>org.apache.servicemix.bundles</groupId>
             <artifactId>org.apache.servicemix.bundles.restlet</artifactId>
-            <version>1.1.10_3</version>
+            <version>${restlet.version}</version>
         </dependency>
 
         <dependency>
