@@ -36,6 +36,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
@@ -91,7 +92,6 @@ public class HTTPUtils {
      * @throws MalformedURLException
      */
     public static String get(String url, String username, String pw) {
-
         GetMethod httpMethod = null;
         HttpClient client = new HttpClient();
         HttpConnectionManager connectionManager = client.getHttpConnectionManager();
@@ -517,8 +517,6 @@ public class HTTPUtils {
                 throw new RuntimeException("Unhandled response status at '" + url + "': (" + status + ") "
                                            + httpMethod.getStatusText());
             }
-        } catch (ConnectException e) {
-            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         } finally {

@@ -29,20 +29,19 @@ import it.geosolutions.geoserver.rest.decoder.RESTCoverageStore;
 import it.geosolutions.geoserver.rest.decoder.RESTStructuredCoverageGranulesList;
 import it.geosolutions.geoserver.rest.decoder.RESTStyleList;
 import it.geosolutions.geoserver.rest.decoder.utils.NameLinkElem;
-import it.geosolutions.geoserver.rest.encoder.GSBackupEncoder;
-import it.geosolutions.geoserver.rest.encoder.GSLayerEncoder;
-import it.geosolutions.geoserver.rest.encoder.GSLayerGroupEncoder;
-import it.geosolutions.geoserver.rest.encoder.GSNamespaceEncoder;
-import it.geosolutions.geoserver.rest.encoder.GSPostGISDatastoreEncoder;
-import it.geosolutions.geoserver.rest.encoder.GSResourceEncoder;
+import it.geosolutions.geoserver.rest.encoder.*;
 import it.geosolutions.geoserver.rest.encoder.GSResourceEncoder.ProjectionPolicy;
-import it.geosolutions.geoserver.rest.encoder.GSWorkspaceEncoder;
 import it.geosolutions.geoserver.rest.encoder.coverage.GSCoverageEncoder;
 import it.geosolutions.geoserver.rest.encoder.feature.GSFeatureTypeEncoder;
+import it.geosolutions.geoserver.rest.manager.GeoServerRESTImporterManager;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStructuredGridCoverageReaderManager;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStructuredGridCoverageReaderManager.ConfigureCoveragesOption;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStyleManager;
-import it.geosolutions.geoserver.rest.manager.GeoServerRESTImporterManager;
+import net.sf.json.JSONObject;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.io.FilenameUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -53,13 +52,6 @@ import java.net.URI;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.zip.ZipFile;
-
-import org.apache.commons.httpclient.NameValuePair;
-import org.apache.commons.io.FilenameUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import net.sf.json.JSONObject;
 
 /**
  * Connect to a GeoServer instance to publish or modify its contents via REST API.
@@ -174,10 +166,8 @@ public class GeoServerRESTPublisher {
         bkpenc.setIncludeData(includedata);
         bkpenc.setIncludeGwc(includegwc);
         bkpenc.setIncludeLog(includelog);
-        final String result = HTTPUtils.post(bkpUrl.toString(), bkpenc.toString(), "text/xml",
-                gsuser, gspass);
 
-        return result;
+        return HTTPUtils.post(bkpUrl.toString(), bkpenc.toString(), "text/xml", gsuser, gspass);
     }
 
     /**
@@ -838,12 +828,12 @@ public class GeoServerRESTPublisher {
             throw new IllegalArgumentException("Null argument");
         }
         StringBuilder sbUrl = new StringBuilder(restURL).append("/rest/workspaces/")
-                .append(workspace).append("/").append(dsType).append("/").append(storeName)
+                .append(workspace).append("/").append(dsType).append("/").append(Util.encodeUrl(storeName))
                 .append("/").append(method).append(".").append(extension);
 
         if (configure != null) {
             sbUrl.append("?configure=").append(configure);
-            if (params != (NameValuePair[]) null) {
+            if (params != null) {
                 final String paramString = appendParameters(params);
                 if (!paramString.isEmpty()) {
                     sbUrl.append("&").append(paramString);
@@ -1666,8 +1656,7 @@ public class GeoServerRESTPublisher {
         final GSLayerEncoder layerEncoder = new GSLayerEncoder();
         layerEncoder.setDefaultStyle(defaultStyle);
 
-        return publishExternalArcGrid(workspace, storeName, arcgrid, coverageEncoder, layerEncoder) != null ? true
-                : false;
+        return publishExternalArcGrid(workspace, storeName, arcgrid, coverageEncoder, layerEncoder) != null;
     }
 
     /**
@@ -1875,8 +1864,7 @@ public class GeoServerRESTPublisher {
         final GSLayerEncoder layerEncoder = new GSLayerEncoder();
         layerEncoder.setDefaultStyle(defaultStyle);
 
-        return publishExternalGeoTIFF(workspace, storeName, geotiff, coverageEncoder, layerEncoder) != null ? true
-                : false;
+        return publishExternalGeoTIFF(workspace, storeName, geotiff, coverageEncoder, layerEncoder) != null;
     }
 
     /**
@@ -2169,8 +2157,7 @@ public class GeoServerRESTPublisher {
             if (LOGGER.isDebugEnabled()) {
                 LOGGER.debug("Going to delete " + "/rest/layers/" + fqLayerName);
             }
-            boolean layerDeleted = HTTPUtils
-                    .delete(deleteLayerUrl.toExternalForm(), gsuser, gspass);
+            boolean layerDeleted = HTTPUtils.delete(deleteLayerUrl.toExternalForm(), gsuser, gspass);
             if (!layerDeleted) {
                 LOGGER.warn("Could not delete layer '" + fqLayerName + "'");
                 return false;
@@ -2226,10 +2213,10 @@ public class GeoServerRESTPublisher {
             } else {
                 fqLayerName = workspace + ":" + layerName;
             }
-            // delete related layer
             URL deleteLayerUrl = new URL(restURL + "/rest/layers/" + fqLayerName);
-            boolean layerDeleted = HTTPUtils
-                    .delete(deleteLayerUrl.toExternalForm(), gsuser, gspass);
+
+            // delete related layer
+            boolean layerDeleted = HTTPUtils.delete(deleteLayerUrl.toExternalForm(), gsuser, gspass);
             if (!layerDeleted) {
                 LOGGER.warn("Could not delete layer '" + fqLayerName + "'");
                 return false;
@@ -2551,10 +2538,9 @@ public class GeoServerRESTPublisher {
      * @return true if successfully reloaded
      * @throws FileNotFoundException
      * @throws IllegalArgumentException
-     * @throws MalformedURLException
      */
     public boolean reloadStore(String workspace, final String storeName, StoreType storeType)
-            throws IllegalArgumentException, MalformedURLException {
+            throws IllegalArgumentException {
         final String url = HTTPUtils.append(this.restURL, "/rest/workspaces/", workspace, "/",
                 storeType.toString(), "/", storeName, ".xml").toString();
         final String store = HTTPUtils.get(url, this.gsuser, this.gspass);
@@ -2577,7 +2563,7 @@ public class GeoServerRESTPublisher {
             String endTag = "</" + storeTag + ">";
             int stop = store.indexOf(endTag) + endTag.length();
             return HTTPUtils.putXml(url, store.subSequence(0, start) + store.substring(stop),
-                    this.gsuser, this.gspass) != null ? true : false;
+                    this.gsuser, this.gspass) != null;
         } else
             return false;
     }
@@ -2634,9 +2620,9 @@ public class GeoServerRESTPublisher {
             throw new IllegalArgumentException("Empty argument");
         }
 
-        final String fqLayerName = workspace + ":" + resourceName;
+        final String fqLayerName = workspace + ":" + Util.encodeUrl(resourceName);
 
-        final String url = restURL + "/rest/layers/" + fqLayerName;
+        String url = restURL + "/rest/layers/" + fqLayerName;
 
         String layerXml = layer.toString();
         String sendResult = HTTPUtils.putXml(url, layerXml, gsuser, gspass);
@@ -2864,7 +2850,7 @@ public class GeoServerRESTPublisher {
             throw new IllegalArgumentException("Null argument");
         }
         StringBuilder sbUrl = new StringBuilder(restURL).append("/rest/workspaces/")
-                .append(workspace).append("/").append(dsType).append("/").append(storeName)
+                .append(workspace).append("/").append(dsType).append("/").append(Util.encodeUrl(storeName))
                 .append("/").append(dsType.getTypeNameWithFormat(Format.XML));
 
         final String resourceName = re.getName();
@@ -2981,11 +2967,7 @@ public class GeoServerRESTPublisher {
             GeoServerRESTStructuredGridCoverageReaderManager manager = new GeoServerRESTStructuredGridCoverageReaderManager(
                     new URL(restURL), gsuser, gspass);
             return manager.harvestExternal(workspace, coverageStore, format, path);
-        } catch (IllegalArgumentException e) {
-            if (LOGGER.isInfoEnabled()) {
-                LOGGER.info(e.getLocalizedMessage(), e);
-            }
-        } catch (MalformedURLException e) {
+        } catch (IllegalArgumentException | MalformedURLException e) {
             if (LOGGER.isInfoEnabled()) {
                 LOGGER.info(e.getLocalizedMessage(), e);
             }
