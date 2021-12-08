@@ -2346,7 +2346,7 @@ public class GeoServerRESTPublisher {
 
             final StringBuilder url = new StringBuilder(restURL);
             url.append("/rest/workspaces/").append(workspace).append("/").append(type).append("/")
-                    .append(storename);
+                    .append(Util.encodeUrl(storename));
             url.append("?recurse=").append(recurse);
             if(purge != null)
                 url.append("&purge=").append(purge);

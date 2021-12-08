@@ -151,14 +151,12 @@ public class GeoServerRESTReader {
 
     private String load(String url) {
         LOGGER.info("Loading from REST path " + url);
-        String response = HTTPUtils.get(baseurl + url, username, password);
-        return response;
+        return HTTPUtils.get(baseurl + url, username, password);
     }
 
     private String loadFullURL(String url) {
         LOGGER.info("Loading from REST path " + url);
-        String response = HTTPUtils.get(url, username, password);
-        return response;
+        return HTTPUtils.get(url, username, password);
     }
 
     /**
@@ -783,10 +781,11 @@ public class GeoServerRESTReader {
      */
     public boolean existsLayerGroup(String workspace, String name, boolean quietOnNotFound){
         String url;
+        String encodeName = Util.encodeUrl(name);
         if (workspace == null) {
-            url = baseurl + "/rest/layergroups/" + name + ".xml";
+            url = baseurl + "/rest/layergroups/" + encodeName + ".xml";
         } else {
-            url = baseurl + "/rest/workspaces/" + workspace + "/layergroups/" + name + ".xml";
+            url = baseurl + "/rest/workspaces/" + workspace + "/layergroups/" + encodeName + ".xml";
         }  
         String composed = Util.appendQuietOnNotFound(quietOnNotFound, url);
         return HTTPUtils.exists(composed, username, password);
