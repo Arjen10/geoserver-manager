@@ -298,7 +298,7 @@ public class GeoServerRESTReader {
      * @return DataStore details as a {@link RESTDataStore}
      */
     public RESTDataStore getDatastore(String workspace, String dsName) {
-        String url = "/rest/workspaces/" + workspace + "/datastores/" + dsName + ".xml";
+        String url = "/rest/workspaces/" + workspace + "/datastores/" + Util.encodeUrl(dsName) + ".xml";
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("### Retrieving DS from " + url);
         }
@@ -343,7 +343,7 @@ public class GeoServerRESTReader {
      * @return boolean indicating if the datastore exists
      */
     public boolean existsDatastore(String workspace, String dsName, boolean quietOnNotFound){
-        String url = baseurl + "/rest/workspaces/" + workspace + "/datastores/" + dsName + ".xml";
+        String url = baseurl + "/rest/workspaces/" + workspace + "/datastores/" + Util.encodeUrl(dsName) + ".xml";
         String composed = Util.appendQuietOnNotFound(quietOnNotFound, url);
         return HTTPUtils.exists(composed, username, password);
     }
@@ -389,7 +389,8 @@ public class GeoServerRESTReader {
      * @return boolean indicating if the featuretype exists
      */
     public boolean existsFeatureType(String workspace, String dsName, String ftName, boolean quietOnNotFound){
-        String url = baseurl + "/rest/workspaces/" + workspace + "/datastores/" + dsName + "/featuretypes/" + ftName +".xml";
+        String url = baseurl + "/rest/workspaces/" + workspace + "/datastores/"
+                + Util.encodeUrl(dsName) + "/featuretypes/" + Util.encodeUrl(ftName) +".xml";
         String composed = Util.appendQuietOnNotFound(quietOnNotFound, url);
         return HTTPUtils.exists(composed, username, password);
     }
@@ -421,7 +422,7 @@ public class GeoServerRESTReader {
      * @return CoverageStore details as a {@link RESTCoverageStore}
      */
     public RESTCoverageStore getCoverageStore(String workspace, String csName) {
-        String url = "/rest/workspaces/" + workspace + "/coveragestores/" + csName + ".xml";
+        String url = "/rest/workspaces/" + workspace + "/coveragestores/" + Util.encodeUrl(csName) + ".xml";
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("### Retrieving CS from " + url);
         }
@@ -453,7 +454,7 @@ public class GeoServerRESTReader {
      * @return boolean indicating if the coveragestore exists
      */
     public boolean existsCoveragestore(String workspace, String csName, boolean quietOnNotFound){
-        String url = baseurl + "/rest/workspaces/" + workspace + "/coveragestores/" + csName + ".xml";
+        String url = baseurl + "/rest/workspaces/" + workspace + "/coveragestores/" + Util.encodeUrl(csName) + ".xml";
         String composed = Util.appendQuietOnNotFound(quietOnNotFound, url);
         return HTTPUtils.exists(composed, username, password);
     }
@@ -498,7 +499,7 @@ public class GeoServerRESTReader {
      * @return Coverage details as a {@link RESTCoverage}
      */
     public RESTCoverage getCoverage(String workspace, String store, String name) {
-        String url = "/rest/workspaces/" + workspace + "/coveragestores/" + store + "/coverages/"+name+".xml";
+        String url = "/rest/workspaces/" + workspace + "/coveragestores/" + store + "/coverages/"+ Util.encodeUrl(name) +".xml";
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("### Retrieving Coverage from " + url);
         }
@@ -515,7 +516,7 @@ public class GeoServerRESTReader {
      * @return boolean indicating if the coverage exists
      */
     public boolean existsCoverage(String workspace, String store, String name, boolean quietOnNotFound){
-        String url = baseurl + "/rest/workspaces/" + workspace + "/coveragestores/" + store + "/coverages/"+name+".xml";
+        String url = baseurl + "/rest/workspaces/" + workspace + "/coveragestores/" + store + "/coverages/"+ Util.encodeUrl(name) +".xml";
         String composed = Util.appendQuietOnNotFound(quietOnNotFound, url);
         return HTTPUtils.exists(composed, username, password);
     }
@@ -604,7 +605,7 @@ public class GeoServerRESTReader {
      * @return boolean indicating if the wmsstore exists
      */
     public boolean existsWmsstore(String workspace, String wsName, boolean quietOnNotFound){
-        String url = baseurl + "/rest/workspaces/" + workspace + "/wmsstores/" + wsName + ".xml";
+        String url = baseurl + "/rest/workspaces/" + workspace + "/wmsstores/" + Util.encodeUrl(wsName) + ".xml";
         String composed = Util.appendQuietOnNotFound(quietOnNotFound, url);
         return HTTPUtils.exists(composed, username, password);
     }
@@ -632,7 +633,7 @@ public class GeoServerRESTReader {
      * @return wms list as a {@link RESTWmsList}
      */
     public RESTWmsList getWms(String workspace, String wsName) {
-        String url = "/rest/workspaces/" + workspace + "/wmsstores/" + wsName + "/wmslayers.xml";
+        String url = "/rest/workspaces/" + workspace + "/wmsstores/" + Util.encodeUrl(wsName) + "/wmslayers.xml";
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("### Retrieving Wmss from " + url);
         }
@@ -648,7 +649,8 @@ public class GeoServerRESTReader {
      * @return wms details as a {@link RESTwms}
      */
     public RESTWms getWms(String workspace, String store, String name) {
-        String url = "/rest/workspaces/" + workspace + "/wmsstores/" + store + "/wmslayers/"+name+".xml";
+        String url = "/rest/workspaces/" + workspace + "/wmsstores/" + Util.encodeUrl(store)
+                + "/wmslayers/"+ Util.encodeUrl(name) +".xml";
         if (LOGGER.isDebugEnabled()) {
             LOGGER.debug("### Retrieving Wmss from " + url);
         }
@@ -665,7 +667,8 @@ public class GeoServerRESTReader {
      * @return boolean indicating if the coverage exists
      */
     public boolean existsWms(String workspace, String store, String name, boolean quietOnNotFound){
-        String url = baseurl + "/rest/workspaces/" + workspace + "/wmsstores/" + store + "/wmslayers/"+name+".xml";
+        String url = baseurl + "/rest/workspaces/" + workspace + "/wmsstores/" + Util.encodeUrl(store)
+                + "/wmslayers/"+ Util.encodeUrl(name) +".xml";
         String composed = Util.appendQuietOnNotFound(quietOnNotFound, url);
         return HTTPUtils.exists(composed, username, password);
     }
@@ -740,10 +743,11 @@ public class GeoServerRESTReader {
      */
     public RESTLayerGroup getLayerGroup(String workspace, String name) {
         String url;
+        String encodeName = Util.encodeUrl(name);
         if (workspace == null) {
-            url = "/rest/layergroups/" + name + ".xml";
+            url = "/rest/layergroups/" + encodeName + ".xml";
         } else {
-            url = "/rest/workspaces/" + workspace + "/layergroups/" + name + ".xml";
+            url = "/rest/workspaces/" + workspace + "/layergroups/" + encodeName + ".xml";
         }        
         
         if (LOGGER.isDebugEnabled()) {

@@ -82,8 +82,7 @@ public class Util {
      */
     public static String appendQuietOnNotFound(boolean quietOnNotFound, String url) {
         boolean contains = url.contains("?");
-        String composed = url + (contains ? "&" : "?") + QUIET_ON_NOT_FOUND_PARAM + quietOnNotFound;
-        return composed;
+        return url + (contains ? "&" : "?") + QUIET_ON_NOT_FOUND_PARAM + quietOnNotFound;
     }
 
     public static <T> List<T> safeList(List<T> list) {
