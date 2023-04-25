@@ -11,4 +11,4 @@ nb*.xml
 # ./
 
 ./target
-
+./idea
