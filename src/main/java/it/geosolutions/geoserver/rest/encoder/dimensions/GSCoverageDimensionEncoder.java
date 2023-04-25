@@ -37,7 +37,7 @@ import org.jdom.filter.Filter;
  * {@code
  * final GSCoverageDimensionEncoder gsCoverageDimensionEncoder = 
  *      new GSCoverageDimensionEncoder("GRAY_INDEX", "GridSampleDimension[-2.147483648E9,-2.147483648E9]", 
- *      String.valueOf(Integer.MIN_VALUE), String.valueOf(Integer.MAX_VALUE), "dobson units³", "REAL_32BITS");
+ *      String.valueOf(Integer.MIN_VALUE), String.valueOf(Integer.MAX_VALUE), "dobson units", "REAL_32BITS");
  *  coverageEncoder.addCoverageDimensionInfo(gsCoverageDimensionEncoder);
  * }
  * </pre>
@@ -53,7 +53,7 @@ import org.jdom.filter.Filter;
  * 		<min>-2.147483648E9</min>
  * 		<max>2.147483647E9</max>
  * 	</range>
- * 	<unit>dobson units³</unit>
+ * 	<unit>dobson units</unit>
  * 	<dimensionType>
  *  		<name>REAL_32BITS</name>
  *  	</dimensionType>

@@ -26,6 +26,11 @@
 package it.geosolutions.geoserver.rest;
 
 import it.geosolutions.geoserver.rest.decoder.RESTStyle;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,14 +38,15 @@ import java.util.List;
 import java.util.Map;
 
 /**
- *
  * @author ETj (etj at geo-solutions.it)
  */
 public class Util {
 
-public static final String QUIET_ON_NOT_FOUND_PARAM = "quietOnNotFound="; 
-    
-    public static final boolean DEFAULT_QUIET_ON_NOT_FOUND = true; 
+    public static final String QUIET_ON_NOT_FOUND_PARAM = "quietOnNotFound=";
+
+    public static final boolean DEFAULT_QUIET_ON_NOT_FOUND = true;
+
+    private static final Logger LOGGER = LoggerFactory.getLogger(Util.class);
 
     /**
      * Search for a stylename in global and in all workspaces.
@@ -52,31 +58,31 @@ public static final String QUIET_ON_NOT_FOUND_PARAM = "quietOnNotFound=";
         RESTStyle style = reader.getStyle(stylename);
 
         // We don't want geoserver to be lenient here: take only the real global style if it exists
-        if(style != null) {
-            if(style.getWorkspace() == null || style.getWorkspace().isEmpty()) {
+        if (style != null) {
+            if (style.getWorkspace() == null || style.getWorkspace().isEmpty()) {
                 styles.add(style);
             }
         }
 
         for (String workspace : reader.getWorkspaceNames()) {
             style = reader.getStyle(workspace, stylename);
-            if(style != null)
+            if (style != null)
                 styles.add(style);
         }
 
         return styles;
     }
-    
+
     /**
      * Append the quietOnNotFound parameter to the input URL
+     *
      * @param quietOnNotFound parameter
-     * @param url input url
+     * @param url             input url
      * @return a composed url with the parameter appended
      */
     public static String appendQuietOnNotFound(boolean quietOnNotFound, String url) {
         boolean contains = url.contains("?");
-        String composed = url + (contains ? "&":"?") + QUIET_ON_NOT_FOUND_PARAM + quietOnNotFound;
-        return composed;
+        return url + (contains ? "&" : "?") + QUIET_ON_NOT_FOUND_PARAM + quietOnNotFound;
     }
 
     public static <T> List<T> safeList(List<T> list) {
@@ -108,7 +114,7 @@ public static final String QUIET_ON_NOT_FOUND_PARAM = "quietOnNotFound=";
     }
 
     public static boolean appendParameter(StringBuilder url, String parameterName,
-            String parameterValue) {
+                                          String parameterValue) {
         boolean result = false;
         if (parameterName != null && !parameterName.isEmpty()
                 && parameterValue != null && !parameterValue.isEmpty()) {
@@ -118,4 +124,14 @@ public static final String QUIET_ON_NOT_FOUND_PARAM = "quietOnNotFound=";
         }
         return result;
     }
+
+    public static String encodeUrl(String url) {
+        try {
+            return URLEncoder.encode(url, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            LOGGER.info("UrlEncodeError:" + url + "  message:" + e.getMessage());
+            return url;
+        }
+    }
+
 }

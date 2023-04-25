@@ -29,25 +29,22 @@ import it.geosolutions.geoserver.rest.HTTPUtils;
 import it.geosolutions.geoserver.rest.Util;
 import it.geosolutions.geoserver.rest.decoder.RESTStyle;
 import it.geosolutions.geoserver.rest.decoder.RESTStyleList;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.*;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLEncoder;
-import java.nio.charset.Charset;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpression;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
+import java.nio.charset.StandardCharsets;
 
 /**
  *
@@ -710,7 +707,7 @@ public class GeoServerRESTStyleManager extends GeoServerRESTAbstractManager {
 
         sUrl.append("/styles");
         if ( name != null && !name.isEmpty()) {
-            sUrl.append("?name=").append(URLEncoder.encode(name));
+            sUrl.append("?name=").append(Util.encodeUrl(name));
         }
         return sUrl.toString();
     }
@@ -732,7 +729,7 @@ public class GeoServerRESTStyleManager extends GeoServerRESTAbstractManager {
         if(workspace != null)
             sUrl.append("/workspaces/").append(workspace);
 
-        sUrl.append("/styles/").append(URLEncoder.encode(name));
+        sUrl.append("/styles/").append(Util.encodeUrl(name));
                 
         if(ext != null)
             sUrl.append(ext);
@@ -745,14 +742,10 @@ public class GeoServerRESTStyleManager extends GeoServerRESTAbstractManager {
         DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
         try {
             DocumentBuilder builder = factory.newDocumentBuilder();
-            InputStream stream = new ByteArrayInputStream(sldBody.getBytes(Charset.forName("UTF-8")));
+            InputStream stream = new ByteArrayInputStream(sldBody.getBytes(StandardCharsets.UTF_8));
             Document doc = builder.parse(stream);
             result = this.checkSLD10Version(doc);
-        } catch (SAXException ex) {
-            LOGGER.error("Error parsing SLD file: " + ex);
-        } catch (IOException ex) {
-            LOGGER.error("Error parsing SLD file: " + ex);
-        } catch (ParserConfigurationException ex) {
+        } catch (SAXException | IOException | ParserConfigurationException ex) {
             LOGGER.error("Error parsing SLD file: " + ex);
         }
         return result;

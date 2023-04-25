@@ -19,8 +19,6 @@
  */
 package it.geosolutions.geoserver.rest.encoder.coverage;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import it.geosolutions.geoserver.rest.encoder.GSResourceEncoder;
 import it.geosolutions.geoserver.rest.encoder.GSResourceEncoder.ProjectionPolicy;
 import it.geosolutions.geoserver.rest.encoder.dimensions.GSCoverageDimensionEncoder;
@@ -128,7 +126,7 @@ public class GSCoverageEncoderTest extends TestCase {
         // setting dimensions (since gs-2.4.x)
     	GSCoverageDimensionEncoder gsCoverageDimensionEncoder = new GSCoverageDimensionEncoder(
                 "GRAY_INDEX", "GridSampleDimension[-Infinity,Infinity]", "-inf", "inf",
-                "dobson units³", "REAL_32BITS");
+                "dobson units", "REAL_32BITS");
         encoder.addCoverageDimensionInfo(gsCoverageDimensionEncoder);
 
         encoder.setNativeCoverageName("Sample native name");
