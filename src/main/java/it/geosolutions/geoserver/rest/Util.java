@@ -129,7 +129,7 @@ public class Util {
         try {
             return URLEncoder.encode(url, "UTF-8");
         } catch (UnsupportedEncodingException e) {
-            LOGGER.info("UrlEncodeError:" + url + "  message:" + e.getMessage());
+            LOGGER.error("UrlEncodeError:" + url + "  message:" + e.getMessage());
             return url;
         }
     }
