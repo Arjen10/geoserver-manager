@@ -28,6 +28,7 @@ import it.geosolutions.geoserver.rest.manager.GeoServerRESTAbstractManager;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStoreManager;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStructuredGridCoverageReaderManager;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStyleManager;
+import lombok.Getter;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -48,7 +49,14 @@ import java.net.URL;
 public class GeoServerRESTManager extends GeoServerRESTAbstractManager {
 
     private final GeoServerRESTPublisher publisher;
+
+    @Getter
+    private final GeoWebCacheRESTPublisher gwcPublisher;
+
     private final GeoServerRESTReader reader;
+
+    @Getter
+    private final GeoWebCacheRESTReader gwcReader;
 
     private final GeoServerRESTStoreManager storeManager;
     private final GeoServerRESTStyleManager styleManager;
@@ -72,7 +80,10 @@ public class GeoServerRESTManager extends GeoServerRESTAbstractManager {
 
         // Internal publisher and reader, provide simple access methods.
         publisher = new GeoServerRESTPublisher(restURL.toString(), username, password);
+        //1.8.0 support GoeWebCache
+        gwcPublisher = new GeoWebCacheRESTPublisher(restURL, username, password);
         reader = new GeoServerRESTReader(restURL, username, password);
+        gwcReader = new GeoWebCacheRESTReader(restURL, username, password);
         structuredGridCoverageReader = new GeoServerRESTStructuredGridCoverageReaderManager(restURL, username, password);
         storeManager = new GeoServerRESTStoreManager(restURL, gsuser, gspass);
         styleManager = new GeoServerRESTStyleManager(restURL, gsuser, gspass);

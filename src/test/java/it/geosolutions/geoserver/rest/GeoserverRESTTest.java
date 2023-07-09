@@ -25,29 +25,23 @@
 
 package it.geosolutions.geoserver.rest;
 
-import it.geosolutions.geoserver.rest.decoder.RESTCoverage;
-import it.geosolutions.geoserver.rest.decoder.RESTCoverageStore;
-import it.geosolutions.geoserver.rest.decoder.RESTDataStore;
-import it.geosolutions.geoserver.rest.decoder.RESTFeatureType;
-import it.geosolutions.geoserver.rest.decoder.RESTLayer;
-import it.geosolutions.geoserver.rest.decoder.RESTLayerGroup;
+import it.geosolutions.geoserver.rest.decoder.*;
 import it.geosolutions.geoserver.rest.decoder.about.GSVersionDecoder;
 import it.geosolutions.geoserver.rest.decoder.about.GSVersionDecoder.VERSION;
 import it.geosolutions.geoserver.rest.decoder.utils.NameLinkElem;
+import org.junit.Before;
+import org.junit.BeforeClass;
+import org.junit.Rule;
+import org.junit.rules.TestName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-import static org.junit.Assert.*;
-
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Rule;
-import org.junit.rules.TestName;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 
 /**
  * Initializes REST params.
@@ -87,7 +81,12 @@ public abstract class GeoserverRESTTest {
 
     public static GeoServerRESTReader reader;
 
+    public static GeoWebCacheRESTReader gwcReader;
+
+
     public static GeoServerRESTPublisher publisher;
+
+    public static GeoWebCacheRESTPublisher gwcPublisher;
 
     private static boolean enabled = false;
 
@@ -108,7 +107,9 @@ public abstract class GeoserverRESTTest {
             URL = new URL(RESTURL);
             manager = new GeoServerRESTManager(URL, RESTUSER, RESTPW);
             reader = manager.getReader();
+            gwcReader = manager.getGwcReader();
             publisher = manager.getPublisher();
+            gwcPublisher = manager.getGwcPublisher();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }

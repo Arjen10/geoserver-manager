@@ -269,6 +269,8 @@
         <jdom.version>1.1</jdom.version>
         <json.version>2.4</json.version>
         <restlet.version>1.1.10_3</restlet.version>
+        <lombok.version>1.18.28</lombok.version>
+        <jackson.version>2.15.0</jackson.version>
     </properties>
 
     <dependencies>
@@ -315,11 +317,28 @@
             <artifactId>slf4j-api</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+
         <dependency>
             <groupId>org.slf4j</groupId>
             <artifactId>jcl-over-slf4j</artifactId>
             <version>${slf4j.version}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>compile</scope>
+            <optional>true</optional>
+        </dependency>
+
+
         <!-- commons-logging can be rather simply and conveniently excluded as
              a dependency by declaring it in the provided scope within the pom.xml file
              of your project. The actual commons-logging classes would be provided by
