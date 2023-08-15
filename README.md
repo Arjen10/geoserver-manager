@@ -1,6 +1,10 @@
 # geoserver-manager
+
+
 ## Status
  * 原仓库年久失修，在项目中又大量使用，所以将随手修复的bug提交并贡献社区。用爱发电。
+ * JDK最低版本1.8。
+
 
 ## Using the library 
 
