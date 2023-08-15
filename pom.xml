@@ -27,9 +27,9 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>it.geosolutions</groupId>
+    <groupId>io.github.Arjen10</groupId>
     <artifactId>geoserver-manager</artifactId>
-    <version>1.7-SNAPSHOT</version>
+    <version>1.8.0</version>
 
     <packaging>jar</packaging>
 
@@ -43,7 +43,7 @@
 
     <inceptionYear>2007</inceptionYear>
 
-    <url>https://github.com/geosolutions-it/geoserver-manager</url>
+    <url>https://github.com/Arjen10/geoserver-manager</url>
 
     <organization>
         <name>GeoSolutions</name>
@@ -51,6 +51,17 @@
     </organization>
 
     <developers>
+        <developer>
+            <id>Arjen10</id>
+            <name>arjen li</name>
+            <organization>github</organization>
+            <organizationUrl>https://github.com/Arjen10</organizationUrl>
+            <roles>
+                <role>architect</role>
+                <role>developer</role>
+            </roles>
+            <timezone>+8</timezone>
+        </developer>
         <developer>
             <id>etj</id>
             <name>Emanuele Tajariol</name>
@@ -87,7 +98,7 @@
 
     <issueManagement>
         <system>GitHub</system>
-        <url>https://github.com/geosolutions-it/geoserver-manager/issues</url>
+        <url>https://github.com/Arjen10/geoserver-manager/issues</url>
     </issueManagement>
 
     <mailingLists>
@@ -158,16 +169,14 @@
     </repositories>
 
     <distributionManagement>
-        <downloadUrl>http://maven.geo-solutions.it</downloadUrl>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
         <repository>
-            <uniqueVersion>false</uniqueVersion>
-            <id>geosolutions</id>
-            <url>ftp://maven.geo-solutions.it/</url>
+            <id>ossrh</id>
+            <url>https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/</url>
         </repository>
-        <site>
-            <id>demo.geosolutions</id>
-            <url>scp://demo.geo-solutions.it/var/www/share/github/gsman</url>
-        </site>
     </distributionManagement>
 
     <build>
