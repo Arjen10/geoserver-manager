@@ -12,9 +12,9 @@
 
 ```xml
   <dependency>
-    <groupId>it.geosolutions</groupId>
+    <groupId>io.github.Arjen10</groupId>
     <artifactId>geoserver-manager</artifactId>
-    <version>1.7.0</version>
+    <version>1.8.0</version>
   </dependency>
 ```
 
