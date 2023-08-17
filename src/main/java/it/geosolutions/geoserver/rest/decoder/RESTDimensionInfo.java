@@ -37,7 +37,7 @@ public class RESTDimensionInfo extends RESTMetadataList.RESTMetadataElement{
     public static final String ELEVATION = "elevation";
     
     /**
-     * @param elem
+     * @param elem {@link Element}
      */
     public RESTDimensionInfo(Element elem) {
         super(elem);

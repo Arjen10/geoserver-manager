@@ -26,7 +26,6 @@ package it.geosolutions.geoserver.rest.encoder.metadata.virtualtable;
 
 import it.geosolutions.geoserver.rest.encoder.utils.ElementUtils;
 import it.geosolutions.geoserver.rest.encoder.utils.XmlElement;
-
 import org.jdom.Element;
 import org.jdom.filter.Filter;
 
@@ -89,7 +88,7 @@ public class VTGeometryEncoder extends XmlElement {
 	/** 
 	 * Get a Filter using the VTGeometry name
 	 * 
-	 * @param name
+	 * @param name name
 	 * @return the filter
 	 */
 	public static Filter getFilterByName(String name) {
@@ -119,9 +118,9 @@ public class VTGeometryEncoder extends XmlElement {
 	/**
 	 * Set-up quickly a GSVirtualTableGeomEncoder
 	 * 
-	 * @param name
-	 * @param geometryType
-	 * @param srid
+	 * @param name name
+	 * @param geometryType geometryType
+	 * @param srid srid
 	 */
 	protected void setup(String name, String geometryType, String srid) {
 		setName(name);
@@ -132,8 +131,8 @@ public class VTGeometryEncoder extends XmlElement {
 	/**
 	 * Set a VirtualTable Geometry member
 	 * 
-	 * @param type
-	 * @param value
+	 * @param type {@link VTGeometry}
+	 * @param value value
 	 */
 	protected void setMember(VTGeometry type,
 			String value) {
@@ -143,7 +142,7 @@ public class VTGeometryEncoder extends XmlElement {
 	/**
 	 * Set a geometry name
 	 * 
-	 * @param name
+	 * @param name name
 	 */
 	public void setName(String name){
 		this.setMember(VTGeometry.name, name);
@@ -152,7 +151,7 @@ public class VTGeometryEncoder extends XmlElement {
 	/**
 	 * Set a geometry type
 	 * 
-	 * @param type
+	 * @param type type
 	 */
 	public void setType(String type){
 		this.setMember(VTGeometry.type, type);
@@ -161,7 +160,7 @@ public class VTGeometryEncoder extends XmlElement {
 	/**
 	 * Set a geometry srid
 	 * 
-	 * @param srid
+	 * @param srid srid
 	 */
 	public void setSrid(String srid){
 		this.setMember(VTGeometry.srid, srid);
@@ -170,7 +169,7 @@ public class VTGeometryEncoder extends XmlElement {
 	/**
 	 * Deletes a VirtualTableGeometry member
 	 * 
-	 * @param type
+	 * @param type {@link VTGeometry}
 	 * @return true if removed, false otherwise
 	 */
 	protected boolean delMember(VTGeometry type) {
@@ -207,8 +206,8 @@ public class VTGeometryEncoder extends XmlElement {
 	/**
 	 * Get the VirtualTableGeometry member value
 	 * 
-	 * @param type
-	 * @return
+	 * @param type {@link VTGeometry}
+	 * @return String
 	 */
 	protected String getMember(VTGeometry type) {
 		Element el = this.getRoot().getChild(type.toString());
@@ -221,7 +220,7 @@ public class VTGeometryEncoder extends XmlElement {
 	/**
 	 * Get the geometry column name
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getName(){
 		return this.getMember(VTGeometry.name);
@@ -230,7 +229,7 @@ public class VTGeometryEncoder extends XmlElement {
 	/**
 	 * Get the geometry column type
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getType(){
 		return this.getMember(VTGeometry.type);
@@ -239,7 +238,7 @@ public class VTGeometryEncoder extends XmlElement {
 	/**
 	 * Get the geometry column srid
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getSrid(){
 		return this.getMember(VTGeometry.srid);

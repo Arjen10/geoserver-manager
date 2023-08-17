@@ -15,7 +15,6 @@ import java.util.Map;
  * 切片任务的封装类
  *
  * @author Arjen10
- * @date 2021/7/14 14:21
  * @since 1.8.0
  */
 @Data
@@ -136,7 +135,6 @@ public class GWCSeedTask {
      * 切片策略枚举
      *
      * @author Arjen10
-     * @date 2021/9/14 11:57
      * @since 1.8.0
      */
     public enum GWCTileTypeEnum {

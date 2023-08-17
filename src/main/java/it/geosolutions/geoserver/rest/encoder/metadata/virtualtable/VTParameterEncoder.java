@@ -26,35 +26,13 @@ package it.geosolutions.geoserver.rest.encoder.metadata.virtualtable;
 
 import it.geosolutions.geoserver.rest.encoder.utils.ElementUtils;
 import it.geosolutions.geoserver.rest.encoder.utils.XmlElement;
-
 import org.jdom.Element;
 import org.jdom.filter.Filter;
 
 /**
  * VTParameterEncoder - Encodes a metadata VirtualTable parameter for a
  * GeoServer featureType, as follows:
- * 
- * <pre>
- * { @code
- * 	final VTParameterEncoder vtParam = new VTParameterEncoder();
- * 	vtParam.setName("fieldname");
- * 	vtParam.setDefaultValue("default_value");
- * 	vtParam.setRegexpValidator("^[\\w\\d\\s]+$");
- * }
- * </pre>
- * 
- * For this example, the XML output is:
- * 
- * <pre>
- * { @code
- * <parameter>
- * 	<name>fieldname</name>
- * 	<defaultValue>default_value</defaultValue>
- * 	<regexpValidator>^[\w\d\s]+$</regexpValidator>
- * </parameter>
- * }
- * </pre>
- * 
+ *
  * @author Emmanuel Blondel - emmanuel.blondel1@gmail.com |
  *         emmanuel.blondel@fao.org
  * 
@@ -88,7 +66,7 @@ public class VTParameterEncoder extends XmlElement {
 	/** 
 	 * Get a Filter using the VTParameter name
 	 * 
-	 * @param name
+	 * @param name name
 	 * @return the filter
 	 */
 	public static Filter getFilterByName(String name) {
@@ -117,9 +95,9 @@ public class VTParameterEncoder extends XmlElement {
 	/**
 	 * Set-up quickly a VirtualTable parameter
 	 * 
-	 * @param name
-	 * @param defaultValue
-	 * @param regexpValidator
+	 * @param name name
+	 * @param defaultValue defaultValue
+	 * @param regexpValidator regexpValidator
 	 */
 	protected void setup(String name, String defaultValue, String regexpValidator) {
 		setName(name);
@@ -130,8 +108,8 @@ public class VTParameterEncoder extends XmlElement {
 	/**
 	 * Set a VirtualTableParameter member
 	 * 
-	 * @param type
-	 * @param value
+	 * @param type type
+	 * @param value value
 	 */
 	protected void setMember(VTParameter type,
 			String value) {
@@ -141,7 +119,7 @@ public class VTParameterEncoder extends XmlElement {
 	/**
 	 * Set the parameter name
 	 * 
-	 * @param name
+	 * @param name name
 	 */
 	public void setName(String name){
 		this.setMember(VTParameter.name, name);
@@ -150,7 +128,7 @@ public class VTParameterEncoder extends XmlElement {
 	/**
 	 * Set the parameter default value
 	 * 
-	 * @param value
+	 * @param value value
 	 */
 	public void setDefaultValue(String value){
 		this.setMember(VTParameter.defaultValue, value);
@@ -159,7 +137,7 @@ public class VTParameterEncoder extends XmlElement {
 	/**
 	 * Set the parameter regexp validator
 	 * 
-	 * @param validator
+	 * @param validator validator
 	 */
 	public void setRegexpValidator(String validator){
 		this.setMember(VTParameter.regexpValidator, validator);
@@ -168,8 +146,8 @@ public class VTParameterEncoder extends XmlElement {
 	/**
 	 * Deletes a VirtualTableParameter member
 	 * 
-	 * @param type
-	 * @return
+	 * @param type type
+	 * @return boolean
 	 */
 	protected boolean delMember(VTParameter type) {
 		return ElementUtils.remove(this.getRoot(), this.getRoot().getChild(type.toString()));
@@ -206,8 +184,8 @@ public class VTParameterEncoder extends XmlElement {
 	/**
 	 * Get a VirtualTableParameter member
 	 * 
-	 * @param type
-	 * @return
+	 * @param type type
+	 * @return String
 	 */
 	protected String getMember(VTParameter type) {
 		Element el = getRoot().getChild(type.toString());
@@ -220,7 +198,7 @@ public class VTParameterEncoder extends XmlElement {
 	/**
 	 * Get the parameter name
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getName(){
 		return this.getMember(VTParameter.name);
@@ -229,7 +207,7 @@ public class VTParameterEncoder extends XmlElement {
 	/**
 	 * Get the parameter default value
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getDefaultValue(){
 		return this.getMember(VTParameter.defaultValue);
@@ -238,7 +216,7 @@ public class VTParameterEncoder extends XmlElement {
 	/**
 	 * Get the parameter regexp validator
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getRegexpValidator(){
 		return this.getMember(VTParameter.regexpValidator);

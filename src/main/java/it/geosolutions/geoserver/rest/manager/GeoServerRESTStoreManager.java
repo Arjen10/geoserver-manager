@@ -48,7 +48,6 @@ public class GeoServerRESTStoreManager extends GeoServerRESTAbstractManager {
      * @param restURL GeoServer REST API endpoint
      * @param username GeoServer REST API authorized username
      * @param password GeoServer REST API password for the former username
-     * @throws MalformedURLException
      * @throws IllegalArgumentException
      */
     public GeoServerRESTStoreManager(URL restURL, String username, String password)
@@ -62,7 +61,7 @@ public class GeoServerRESTStoreManager extends GeoServerRESTAbstractManager {
      * @param workspace Name of the workspace to contain the store. This
      *            will also be the prefix of any layer names contained in the
      *            store.
-     * @param datastore the set of parameters to be set to the store
+     * @param store the set of parameters to be set to the store
      *            (including connection parameters).
      * @return <TT>true</TT> if the store has been successfully created,
      *         <TT>false</TT> otherwise
@@ -78,7 +77,7 @@ public class GeoServerRESTStoreManager extends GeoServerRESTAbstractManager {
      * Update a store.
      * 
      * @param workspace Name of the workspace that contains the store.
-     * @param datastore the set of parameters to be set to the store
+     * @param store the set of parameters to be set to the store
      *            (including connection parameters).
      * @return <TT>true</TT> if the store has been successfully updated,
      *         <TT>false</TT> otherwise
@@ -95,7 +94,7 @@ public class GeoServerRESTStoreManager extends GeoServerRESTAbstractManager {
      * Remove a given CoverageStore in a given Workspace.
      * 
      * @param workspace The name of the workspace
-     * @param storename The name of the CoverageStore to remove.
+     * @param store The name of the CoverageStore to remove.
      * @param recurse if remove should be performed recursively
      * @return <TT>true</TT> if the CoverageStore was successfully removed.
      * @throws MalformedURLException 

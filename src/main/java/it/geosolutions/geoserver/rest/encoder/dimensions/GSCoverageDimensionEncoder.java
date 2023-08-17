@@ -26,7 +26,6 @@ package it.geosolutions.geoserver.rest.encoder.dimensions;
 
 import it.geosolutions.geoserver.rest.encoder.utils.ElementUtils;
 import it.geosolutions.geoserver.rest.encoder.utils.XmlElement;
-
 import org.jdom.Element;
 import org.jdom.filter.Filter;
 
@@ -93,7 +92,7 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Get a Filter using the GSCoverageDimensionEncoder content (GSCoverageDimensionEncoder name)
      * 
-     * @param content
+     * @param content content
      * @return the filter
      */
     public static Filter getFilterByContent(String content) {
@@ -111,12 +110,12 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Constructs quickly a GSCoverageDimensionEncoder info
      * 
-     * @param name
-     * @param description
-     * @param rangeMin
-     * @param rangeMax
-     * @param unit
-     * @param dimensionTypeName
+     * @param name name
+     * @param description description
+     * @param rangeMin rangeMin
+     * @param rangeMax rangeMax
+     * @param unit unit
+     * @param dimensionTypeName dimensionTypeName
      */
     public GSCoverageDimensionEncoder(String name, String description, String rangeMin,
             String rangeMax, String unit, String dimensionTypeName) {
@@ -126,13 +125,13 @@ public class GSCoverageDimensionEncoder extends XmlElement {
 
     /**
      * Set-up quickly a GSCoverageDimensionEncoder info
-     * 
-     * @param name
-     * @param description
-     * @param rangeMin
-     * @param rangeMax
-     * @param unit
-     * @param dimensionTypeName
+     *
+     * @param name name
+     * @param description description
+     * @param rangeMin rangeMin
+     * @param rangeMax rangeMax
+     * @param unit unit
+     * @param dimensionTypeName dimensionTypeName
      */
     protected void setup(String name, String description, String rangeMin, String rangeMax,
             String unit, String dimensionTypeName) {
@@ -155,7 +154,7 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Get the value of the GSCoverageDimensionEncoder member
      * 
-     * @param memberName
+     * @param memberName memberName
      * @return the value of the GSCoverageDimensionEncoder member
      */
     protected String getMember(String memberName) {
@@ -169,7 +168,7 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Deletes a GSCoverageDimensionEncoder member
      * 
-     * @param memberName
+     * @param memberName memberName
      * @return true if the GSCoverageDimensionEncoder member is removed
      */
     protected boolean delMemberIfExists(String memberName) {
@@ -184,8 +183,8 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Set a GSCoverageDimensionEncoder member
      * 
-     * @param memberName
-     * @param memberValue
+     * @param memberName memberName
+     * @param memberValue memberValue
      */
     protected void setMember(String memberName, String memberValue) {
         if (memberName != null && !memberName.isEmpty() && memberValue != null
@@ -198,8 +197,8 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * adds a GSCoverageDimensionEncoder member
      * 
-     * @param memberName
-     * @param memberValue
+     * @param memberName memberName
+     * @param memberValue memberValue
      */
     protected void addMember(String memberName, String memberValue) {
         if (memberName != null && !memberName.isEmpty() && memberValue != null
@@ -211,7 +210,7 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Set the name
      * 
-     * @param name
+     * @param name name
      */
     public void setName(String name) {
         setMember("name", name);
@@ -220,7 +219,6 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Deletes the name
      * 
-     * @param name
      * @return true if removed
      */
     public boolean delName() {
@@ -248,7 +246,6 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Deletes the description
      * 
-     * @param description
      * @return true if removed
      */
     public boolean delDescription() {
@@ -267,7 +264,8 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Set the range
      * 
-     * @param range
+     * @param rangeMin rangeMin
+     * @param rangeMax rangeMax
      */
     public void setRange(String rangeMin, String rangeMax) {
         if (rangeMin != null && !rangeMin.isEmpty() && rangeMax != null && !rangeMax.isEmpty()) {
@@ -287,7 +285,6 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Deletes the range
      * 
-     * @param range
      * @return true if removed
      */
     public boolean delRange() {
@@ -325,7 +322,7 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Set the unit
      * 
-     * @param unit
+     * @param unit unit
      */
     public void setUnit(String unit) {
         setMember("unit", unit);
@@ -334,7 +331,6 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Deletes the type
      * 
-     * @param type
      * @return true if removed
      */
     public boolean delUnit() {
@@ -353,7 +349,7 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Set the dimensionType
      * 
-     * @param dimensionType
+     * @param dimensionTypeName dimensionTypeName
      */
     public void setDimensionType(String dimensionTypeName) {
         if (dimensionTypeName != null && !dimensionTypeName.isEmpty()) {
@@ -370,7 +366,6 @@ public class GSCoverageDimensionEncoder extends XmlElement {
     /**
      * Deletes the dimensionType
      * 
-     * @param dimensionType
      * @return true if removed
      */
     public boolean delDimensionType() {

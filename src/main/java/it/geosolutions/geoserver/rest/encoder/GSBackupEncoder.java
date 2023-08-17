@@ -27,7 +27,6 @@ package it.geosolutions.geoserver.rest.encoder;
 
 import it.geosolutions.geoserver.rest.encoder.utils.ElementUtils;
 import it.geosolutions.geoserver.rest.encoder.utils.PropertyXMLEncoder;
-
 import org.jdom.Element;
 
 
@@ -49,7 +48,7 @@ public class GSBackupEncoder extends PropertyXMLEncoder
     }
 
     /**
-     * @param path the task path
+     * @param name the task path
      */
     public GSBackupEncoder(String name)
     {
@@ -59,7 +58,7 @@ public class GSBackupEncoder extends PropertyXMLEncoder
 
     /**
      * Add the path to this task
-     * @param path
+     * @param path path
      * @throws IllegalStateException if path is already set
      * @deprecated will be set to protected in the next release
      */
@@ -78,7 +77,7 @@ public class GSBackupEncoder extends PropertyXMLEncoder
 
     /**
      * add or change (if already set) the task path
-     * @param path
+     * @param path path
      */
     public void setPath(final String path)
     {
@@ -112,7 +111,7 @@ public class GSBackupEncoder extends PropertyXMLEncoder
     
     /**
      * Add the includedata to this task
-     * @param includedata
+     * @param includedata includedata
      * @deprecated will be set to protected in the next release
      */
     public void addIncludeData(final Boolean includedata)
@@ -130,7 +129,7 @@ public class GSBackupEncoder extends PropertyXMLEncoder
 
     /**
      * add or change (if already set) the task includedata
-     * @param includedata
+     * @param includedata includedata
      */
     public void setIncludeData(final Boolean includedata)
     {
@@ -164,7 +163,7 @@ public class GSBackupEncoder extends PropertyXMLEncoder
     
     /**
      * Add the includegwc to this task
-     * @param includegwc
+     * @param includegwc includegwc
      * @deprecated will be set to protected in the next release
      */
     public void addIncludeGwc(final Boolean includegwc)
@@ -182,7 +181,7 @@ public class GSBackupEncoder extends PropertyXMLEncoder
 
     /**
      * add or change (if already set) the task includegwc
-     * @param includegwc
+     * @param includegwc includegwc
      */
     public void setIncludeGwc(final Boolean includegwc)
     {
@@ -210,13 +209,13 @@ public class GSBackupEncoder extends PropertyXMLEncoder
         }
     }
     
-    /**
+    /*
      * INCLUDE LOG ELEMENT
      */
     
     /**
      * Add the includelog to this task
-     * @param includelog
+     * @param includelog includelog
      * @deprecated will be set to protected in the next release
      */
     public void addIncludeLog(final Boolean includelog)
@@ -234,7 +233,7 @@ public class GSBackupEncoder extends PropertyXMLEncoder
 
     /**
      * add or change (if already set) the task includelog
-     * @param includelog
+     * @param includelog includelog
      */
     public void setIncludeLog(final Boolean includelog)
     {

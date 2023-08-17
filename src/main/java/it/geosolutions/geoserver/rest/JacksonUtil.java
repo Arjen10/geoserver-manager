@@ -11,7 +11,6 @@ import java.io.IOException;
 
 /**
  * @author Arjen10
- * @date 2022/9/27 14:51
  * @since 1.8.0
  */
 @Slf4j
@@ -44,10 +43,11 @@ public abstract class JacksonUtil {
     }
 
     /**
-     * json转对象
+     * 解析引用类型对象
+     *
      * @param json json字符串
+     * @param tr   tr
      * @return 字节码对象的实例
-     * @param <T> 字节码对象
      */
     public static <T> T parseObjectByTypeReference(String json, TypeReference<T> tr) {
         try {

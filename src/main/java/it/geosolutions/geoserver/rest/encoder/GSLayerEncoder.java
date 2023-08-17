@@ -28,7 +28,6 @@ package it.geosolutions.geoserver.rest.encoder;
 import it.geosolutions.geoserver.rest.encoder.authorityurl.GSAuthorityURLInfoEncoder;
 import it.geosolutions.geoserver.rest.encoder.identifier.GSIdentifierInfoEncoder;
 import it.geosolutions.geoserver.rest.encoder.utils.PropertyXMLEncoder;
-
 import org.jdom.Element;
 import org.jdom.filter.Filter;
 
@@ -138,7 +137,7 @@ public class GSLayerEncoder extends PropertyXMLEncoder {
     }
 
     /**
-     * @see {@link GSLayerEncoder#setWmsPath(String)}
+     *{@link GSLayerEncoder#setWmsPath(String)}
      * 
      * @param path the wms path to set
      */
@@ -160,16 +159,16 @@ public class GSLayerEncoder extends PropertyXMLEncoder {
     }
 
     /**
-     * @see {@link GSLayerEncoder#setDefaultStyle(String)}
-     * @param defaultStyle 
+     * {@link GSLayerEncoder#setDefaultStyle(String)}
+     * @param defaultStyle defaultStyle
      */
     protected void addDefaultStyle(String defaultStyle) {
         add("defaultStyle", defaultStyle);
     }
     
     /**
-     * @see {@link GSLayerEncoder#setDefaultStyle(String)}
-     * @param defaultStyle 
+     *{@link GSLayerEncoder#setDefaultStyle(String)}
+     * @param defaultStyle  defaultStyle
      */
     protected void addDefaultStyle(String workspace, String defaultStyle) {
         addContent(defaultStyleEncoder);
@@ -192,8 +191,8 @@ public class GSLayerEncoder extends PropertyXMLEncoder {
     }
     
     /**
-     * @see {@link GSLayerEncoder#setDefaultStyle(String)}
-     * @param defaultStyle 
+     * {@link GSLayerEncoder#setDefaultStyle(String)}
+     * @param defaultStyle defaultStyle
      */
     public void setDefaultStyle(String workspace, String defaultStyle) {
         remove("defaultStyle");
@@ -203,7 +202,7 @@ public class GSLayerEncoder extends PropertyXMLEncoder {
 	/**
 	 * Add a style
 	 * 
-	 * @param style
+	 * @param style style
 	 */
 	public void addStyle(String style) {
 		final Element el = new Element("style");
@@ -214,7 +213,7 @@ public class GSLayerEncoder extends PropertyXMLEncoder {
 	/**
 	 * delete a style from the list of available styles
 	 * 
-	 * @param style
+	 * @param style style
 	 * @return true if something is removed, false otherwise
 	 */
 	public boolean delStyle(final String style) {
@@ -247,7 +246,7 @@ public class GSLayerEncoder extends PropertyXMLEncoder {
 	/**
 	 * Add an authorityURLInfo to the GeoServer layer
 	 * 
-	 * @param authorityURLInfo
+	 * @param authorityURLInfo {@link GSAuthorityURLInfoEncoder}
 	 */
 	public void addAuthorityURL(GSAuthorityURLInfoEncoder authorityURLInfo) {
 		authorityURLListEncoder.addContent(authorityURLInfo.getRoot());
@@ -257,7 +256,7 @@ public class GSLayerEncoder extends PropertyXMLEncoder {
 	 * Deletes a AuthorityURLInfo from the list using the authorityURL
 	 * (AuthorityURLInfo href)
 	 * 
-	 * @param authorityURL
+	 * @param authorityURL authorityURL
 	 * @return true if something is removed, false otherwise
 	 */
 	public boolean delAuthorityURL(final String authorityURL) {
@@ -268,7 +267,7 @@ public class GSLayerEncoder extends PropertyXMLEncoder {
 	/**
 	 * Add an identifierInfo to the GeoServer layer
 	 * 
-	 * @param identifierInfo
+	 * @param identifierInfo {@link GSIdentifierInfoEncoder}
 	 */
 	public void addIdentifier(GSIdentifierInfoEncoder identifierInfo) {
 		identifierListEncoder.addContent(identifierInfo.getRoot());
@@ -277,8 +276,8 @@ public class GSLayerEncoder extends PropertyXMLEncoder {
 	/**
 	 * Deletes a IdentifierInfo from the list using the authority name
 	 * (IdentifierInfo authority)
-	 * 
-	 * @param authority
+	 *
+	 * @param authority authority
 	 * @return true if something is removed, false otherwise
 	 */
 	public boolean delIdentifier(final String authority) {

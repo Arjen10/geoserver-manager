@@ -25,26 +25,18 @@
 
 package it.geosolutions.geoserver.rest.decoder;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import it.geosolutions.geoserver.rest.decoder.utils.JDOMBuilder;
 import it.geosolutions.geoserver.rest.encoder.authorityurl.AuthorityURLInfo;
 import it.geosolutions.geoserver.rest.encoder.authorityurl.GSAuthorityURLInfoEncoder;
 import it.geosolutions.geoserver.rest.encoder.identifier.GSIdentifierInfoEncoder;
 import it.geosolutions.geoserver.rest.encoder.identifier.IdentifierInfo;
-import it.geosolutions.geoserver.rest.encoder.metadatalink.GSMetadataLinkInfoEncoder;
-import it.geosolutions.geoserver.rest.encoder.metadatalink.ResourceMetadataLinkInfo;
-
 import org.jdom.Element;
 import org.jdom.Namespace;
 
-/**
- * Parse <TT>Layer</TT>s returned as XML REST objects.
- *
- * <P>This is the XML REST representation:
- * <PRE>
- * {@code
+import java.util.ArrayList;
+import java.util.List;
+
+/*
 <layer>
     <name>tasmania_cities</name>
     <path>/</path>
@@ -83,7 +75,12 @@ import org.jdom.Namespace;
 		</Identifier>
 	</identifiers>
 </layer>
- * }</PRE>
+ */
+
+/**
+ * Parse <TT>Layer</TT>s returned as XML REST objects.
+ *
+ * <P>This is the XML REST representation:
  * @author etj
  * @author eblondel
  */
@@ -185,30 +182,16 @@ public class RESTLayer {
 		return resource.getChild("namespace").getChildText("name");
 	}
 
-//	public String getStoreName() {
-//		Element resource = layerElem.getChild("resource");
-//		return resource.getChild("store").getChildText("name");
-//	}
-//
-//	public String getStoreType() {
-//		Element resource = layerElem.getChild("resource");
-//		return resource.getChild("store").getAttributeValue("class");
-//	}
 
-//	public String getCRS() {
-//		Element resource = layerElem.getChild("resource");
-//		Element elBBox = resource.getChild("latLonBoundingBox");
-//		return elBBox.getChildText("crs");
-//	}
+	/*
+	 * <resource class="featureType">
+	 *         <name>tasmania_cities</name>
+	 *         <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://localhost:8080/geoserver/rest/workspaces/topp/datastores/taz_shapes/featuretypes/tasmania_cities.xml" type="application/xml"/>
+	 * </resource>
+	 */
 
     /**
      * Get the URL to retrieve the featuretype.
-     * <PRE>{@code
-        <resource class="featureType">
-        <name>tasmania_cities</name>
-        <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://localhost:8080/geoserver/rest/workspaces/topp/datastores/taz_shapes/featuretypes/tasmania_cities.xml" type="application/xml"/>
-    </resource>
-     * }</CODE>
      */
     public String getResourceUrl() {
 	Element resource = layerElem.getChild("resource");
@@ -272,22 +255,4 @@ public class RESTLayer {
 	}
     
 
-//	protected double getLatLonEdge(String edge) {
-//		Element resource = layerElem.getChild("resource");
-//		Element elBBox = resource.getChild("latLonBoundingBox");
-//		return Double.parseDouble(elBBox.getChildText(edge));
-//	}
-//
-//	public double getMinX() {
-//		return getLatLonEdge("minx");
-//	}
-//	public double getMaxX() {
-//		return getLatLonEdge("maxx");
-//	}
-//	public double getMinY() {
-//		return getLatLonEdge("miny");
-//	}
-//	public double getMaxY() {
-//		return getLatLonEdge("maxy");
-//	}
 }

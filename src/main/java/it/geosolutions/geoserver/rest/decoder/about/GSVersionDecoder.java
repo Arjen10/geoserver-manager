@@ -28,7 +28,6 @@ package it.geosolutions.geoserver.rest.decoder.about;
 import it.geosolutions.geoserver.rest.decoder.utils.JDOMBuilder;
 import it.geosolutions.geoserver.rest.encoder.utils.ElementUtils;
 import it.geosolutions.geoserver.rest.encoder.utils.XmlElement;
-
 import org.jdom.Attribute;
 import org.jdom.Element;
 
@@ -101,7 +100,7 @@ public class GSVersionDecoder extends XmlElement {
     /**
      * Load the string representation into this encoder
      * 
-     * @param document
+     * @param document document
      */
     public GSVersionDecoder(String document) {
         Element root=JDOMBuilder.buildElement(document);
@@ -134,9 +133,8 @@ public class GSVersionDecoder extends XmlElement {
     }
     
     /**
-     * @see {@link Enum#compareTo(Enum)}
-     * @param v
-     * @return
+     * @param v {@link VERSION}
+     * @return int
      */
     public int compareTo(VERSION v) {
         return getVersion().compareTo(v);

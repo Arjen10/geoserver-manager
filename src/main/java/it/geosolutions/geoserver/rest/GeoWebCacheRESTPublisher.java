@@ -8,7 +8,6 @@ import java.net.URL;
 
 /**
  * @author Arjen10
- * @date 2023/7/9 17:02
  */
 @Slf4j
 public class GeoWebCacheRESTPublisher extends GeoServerRESTAbstractManager {

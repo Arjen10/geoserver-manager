@@ -28,6 +28,8 @@ import it.geosolutions.geoserver.rest.GeoServerRESTPublisher.UploadMethod;
 import it.geosolutions.geoserver.rest.HTTPUtils;
 import it.geosolutions.geoserver.rest.decoder.RESTStructuredCoverageGranulesList;
 import it.geosolutions.geoserver.rest.decoder.RESTStructuredCoverageIndexSchema;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
@@ -36,9 +38,6 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 import java.util.zip.ZipFile;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * Manage GeoTools StructuredGridCoverageReader. It allows to create a store from a file or harvest the coverages contained in a file, to delete
@@ -90,7 +89,7 @@ public class GeoServerRESTStructuredGridCoverageReaderManager extends GeoServerR
      * 
      * @param workspace the GeoServer workspace
      * @param coverageStore the GeoServer coverageStore
-     * @param the absolute path to the file to upload
+     * @param path absolute path to the file to upload
      * 
      * @return <code>true</code> if the call succeeds or <code>false</code> otherwise.
      * @since geoserver-2.4.0, geoserver-mng-1.6.0
@@ -107,7 +106,7 @@ public class GeoServerRESTStructuredGridCoverageReaderManager extends GeoServerR
      * 
      * @param workspace the GeoServer workspace
      * @param coverageStore the GeoServer coverageStore
-     * @param the absolute path to the file to upload
+     * @param path absolute path to the file to upload
      * @param configureOpt tells GeoServer whether to configure all coverages in this mosaic (ALL) or none of them (NONE).
      * 
      * @return <code>true</code> if the call succeeds or <code>false</code> otherwise.
@@ -166,7 +165,7 @@ public class GeoServerRESTStructuredGridCoverageReaderManager extends GeoServerR
      * @param workspace the GeoServer workspace
      * @param coverageStore the GeoServer coverageStore
      * @param format the format of the file to upload
-     * @param the absolute path to the file to upload
+     * @param path absolute path to the file to upload
      * 
      * @return <code>true</code> if the call succeeds or <code>false</code> otherwise.
      * @since geoserver-2.4.0, geoserver-mng-1.6.0
@@ -216,7 +215,6 @@ public class GeoServerRESTStructuredGridCoverageReaderManager extends GeoServerR
      * 
      * @return <code>null</code> in case the call does not succeed, or an instance of {@link RESTStructuredCoverageGranulesList}.
      * 
-     * @throws MalformedURLException
      * @throws UnsupportedEncodingException
      * 
      * @since geoserver-2.4.0, geoserver-mng-1.6.0
@@ -283,12 +281,9 @@ public class GeoServerRESTStructuredGridCoverageReaderManager extends GeoServerR
      * @param workspace the GeoServer workspace
      * @param coverageStore the GeoServer coverageStore
      * @param coverage the name of the target coverage from which we are going to remove
-     * @param filter the absolute path to the file to upload
+     * @param granuleId the absolute path to the file to upload
      * 
      * @return <code>null</code> in case the call does not succeed, or an instance of {@link RESTStructuredCoverageGranulesList}.
-     * 
-     * @throws MalformedURLException
-     * @throws UnsupportedEncodingException
      * 
      * @since geoserver-2.4.0, geoserver-mng-1.6.0
      */
@@ -355,13 +350,11 @@ public class GeoServerRESTStructuredGridCoverageReaderManager extends GeoServerR
      * 
      * @param workspace the GeoServer workspace
      * @param coverageStore the GeoServer coverageStore
-     * @param format the format of the file to upload
+     * @param coverage the format of the file to upload
      * 
      * @return <code>null</code> in case the call does not succeed, or an instance of {@link RESTStructuredCoverageGranulesList}.
      * 
      * @throws MalformedURLException
-     * @throws UnsupportedEncodingException
-     * 
      * @since geoserver-2.4.0, geoserver-mng-1.6.0
      */
     public RESTStructuredCoverageIndexSchema getGranuleIndexSchema(final String workspace,
@@ -462,8 +455,7 @@ public class GeoServerRESTStructuredGridCoverageReaderManager extends GeoServerR
      * 
      * @param workspace the GeoServer workspace
      * @param coverageStore the GeoServer coverageStore
-     * @param format the format of the file to upload
-     * @param the absolute path to the file to upload
+     * @param coverage the format of the file to upload
      * @param id the ID of the granule to get information for
      * 
      * @return <code>null</code> in case the call does not succeed, or an instance of {@link RESTStructuredCoverageGranulesList}.

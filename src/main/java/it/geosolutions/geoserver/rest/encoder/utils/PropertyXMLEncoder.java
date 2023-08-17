@@ -35,19 +35,7 @@ import org.jdom.Element;
  * 
  * <h4>Nested nodes</h4> Any key containing one or more slash ("/") will be
  * encoded as nested nodes; <br/>
- * e.g.:
- * 
- * <PRE>
- * {@code 
- *          key = "k1/k2/k3", value = "value" }
- * </pre>
- * 
- * will be encoded as
- * 
- * <PRE>
- * {@code        <k1><k2><k3>value</k3></k2></k1> }
- * </pre>
- * 
+ *
  * @author ETj (etj at geo-solutions.it)
  * @author Carlo Cancellieri - carlo.cancellieri@geo-solutions.it
  */

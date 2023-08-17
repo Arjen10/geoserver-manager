@@ -55,15 +55,14 @@ public class XmlElement{
     }
     
     /**
-     * Empty constructor:<br/>
-     * Use {@link #setRoot()} to initialize the root
+     * Empty constructor:
      */
     protected XmlElement() {
     }
 
     /**
      * update the root of this node
-     * @param root
+     * @param root {@link Element}
      */
     protected void setRoot(final Element root) {
         this.root = root;

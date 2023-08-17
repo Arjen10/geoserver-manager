@@ -25,17 +25,15 @@
 package it.geosolutions.geoserver.rest.manager;
 
 import it.geosolutions.geoserver.rest.HTTPUtils;
+import net.sf.json.JSON;
+import net.sf.json.JSONObject;
+import org.restlet.data.MediaType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-
-import net.sf.json.JSON;
-import net.sf.json.JSONObject;
-
-import org.restlet.data.MediaType;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author Alessio Fabiani, GeoSolutions S.A.S.
@@ -59,8 +57,10 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
 
     /**
      * Retrieves the Import JSON Object given its identifier
-     * 
+     *
      * @param imp int: Import context number ID
+     * @return {@link JSONObject}
+     * @throws Exception Exception
      */
     public JSONObject getImport(int imp) throws Exception {
         JSON json = HTTPUtils.getAsJSON(String.format(buildUrl()+"/%d", imp), gsuser , gspass);
@@ -69,9 +69,11 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
 
     /**
      * Retrieves the Import Task JSON Object given its identifier and task number
-     * 
-     * @param imp int: Import context number ID
+     *
+     * @param imp  int: Import context number ID
      * @param task int: Task number
+     * @return {@link JSONObject}
+     * @throws Exception Exception
      */
     public JSONObject getTask(int imp, int task) throws Exception {
         JSON json = HTTPUtils.getAsJSON(String.format(buildUrl()+"/%d/tasks/%d?expand=all", imp, task), gsuser , gspass);
@@ -136,9 +138,8 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      * @param imp int: Import context number ID
      * @param task int: Task number
      * @param json String: JSON containing the Task properties to be updated
-     * @throws Exception
      */
-    public void putTask(int imp, int task, final String json) throws Exception {
+    public void putTask(int imp, int task, final String json) {
         //HTTPUtils.putJson(String.format(buildUrl()+"/%d/tasks/%d", imp, task), json, gsuser, gspass);
         HTTPUtils.put(String.format(buildUrl()+"/%d/tasks/%d", imp, task), json, "text/plain", gsuser, gspass);
     }
@@ -154,9 +155,8 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      * @param imp int: Import context number ID
      * @param task int: Task number
      * @param json String: JSON containing the Layer properties to be updated
-     * @throws Exception
      */
-    public void putTaskLayer(int imp, int task, final String json) throws Exception {
+    public void putTaskLayer(int imp, int task, final String json) {
         HTTPUtils.putJson(String.format(buildUrl()+"/%d/tasks/%d/layer", imp, task), json, gsuser, gspass);
     }
     
@@ -171,9 +171,8 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      * @param imp int: Import context number ID
      * @param task int: Task number
      * @param json String: JSON containing the Layer properties to be updated
-     * @throws Exception
      */
-    public void postTaskTransform(int imp, int task, final String json) throws Exception {
+    public void postTaskTransform(int imp, int task, final String json) {
         HTTPUtils.postJson(String.format(buildUrl()+"/%d/tasks/%d/transforms", imp, task), json, gsuser, gspass);
     }
 
@@ -205,9 +204,8 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      * 
      * @param body JSON String representing the Importer Context definition
      * @return The new Importer Context ID
-     * @throws Exception
      */
-    public int postNewImport(String body) throws Exception {
+    public int postNewImport(String body) {
         String resp = body == null ? HTTPUtils.post(buildUrl(), "", "text/plain", gsuser, gspass)
             : HTTPUtils.postJson(buildUrl(), body, gsuser, gspass);
         
@@ -220,18 +218,17 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      * Actually starts the READY State Import.
      * 
      * @param imp int: Import context number ID
-     * @throws Exception
      */
-    public void postImport(int imp) throws Exception {
+    public void postImport(int imp) {
         HTTPUtils.post(buildUrl()+"/" + imp + "?exec=true", "", "text/plain", gsuser, gspass);
     }
 
     /**
      * 
      * @param imp int: Import context number ID
-     * @param data
-     * @return
-     * @throws Exception
+     * @param data data
+     * @return int
+     * @throws Exception Exception
      */
     public int postNewTaskAsMultiPartForm(int imp, String data) throws Exception {
         String resp = HTTPUtils.postMultipartForm(buildUrl()+"/" + imp + "/tasks", unpack(data), gsuser, gspass);
@@ -246,11 +243,10 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      * Allows to attach a new zip file to an existing Importer Context.
      * 
      * @param imp int: Import context number ID
-     * @param path
-     * @return
-     * @throws Exception
+     * @param path path
+     * @return int
      */
-    public int putNewTask(int imp, String path) throws Exception {
+    public int putNewTask(int imp, String path) {
         File zip = new File(path);
 
         String resp = HTTPUtils.put(buildUrl()+"/" + imp + "/tasks/" + zip.getName(), zip, MediaType.APPLICATION_ZIP.toString(), gsuser, gspass);
@@ -278,7 +274,7 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      * Creates a temporary file
      * 
      * @return Path to the temporary file
-     * @throws Exception
+     * @throws Exception Exception
      */
     public static File tmpDir() throws Exception {
         File dir = File.createTempFile("importer", "data", new File("target"));
@@ -292,7 +288,7 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      * 
      * @param path The absolute path to the source zip file
      * @return Path to the temporary folder containing the expanded files
-     * @throws Exception
+     * @throws Exception Exception
      */
     public static File unpack(String path) throws Exception {
         return unpack(path, tmpDir());
@@ -304,7 +300,7 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      * @param path The absolute path to the source zip file
      * @param dir Full path of the target folder where to expand the archive
      * @return Path to the temporary folder containing the expanded files
-     * @throws Exception
+     * @throws Exception Exception
      */
     public static File unpack(String path, File dir) throws Exception {
         

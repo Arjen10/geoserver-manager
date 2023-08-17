@@ -25,77 +25,79 @@
 package it.geosolutions.geoserver.rest.decoder;
 
 import it.geosolutions.geoserver.rest.decoder.utils.JDOMBuilder;
+import org.jdom.Element;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 
-import org.jdom.Element;
+/*
+ * <PRE>
+ *   {@code
+ *
+ * <Schema>
+ *   <attributes>
+ *     <Attribute>
+ *       <name>the_geom</name>
+ *       <minOccurs>0</minOccurs>
+ *       <maxOccurs>1</maxOccurs>
+ *       <nillable>true</nillable>
+ *       <binding>com.vividsolutions.jts.geom.Polygon</binding>
+ *     </Attribute>
+ *     <Attribute>
+ *       <name>location</name>
+ *       <minOccurs>0</minOccurs>
+ *       <maxOccurs>1</maxOccurs>
+ *       <nillable>true</nillable>
+ *       <binding>java.lang.String</binding>
+ *     </Attribute>
+ *     <Attribute>
+ *       <name>imageindex</name>
+ *       <minOccurs>0</minOccurs>
+ *       <maxOccurs>1</maxOccurs>
+ *       <nillable>true</nillable>
+ *       <binding>java.lang.Integer</binding>
+ *     </Attribute>
+ *     <Attribute>
+ *       <name>time</name>
+ *       <minOccurs>0</minOccurs>
+ *       <maxOccurs>1</maxOccurs>
+ *       <nillable>true</nillable>
+ *       <binding>java.sql.Timestamp</binding>
+ *     </Attribute>
+ *     <Attribute>
+ *       <name>elevation</name>
+ *       <minOccurs>0</minOccurs>
+ *       <maxOccurs>1</maxOccurs>
+ *       <nillable>true</nillable>
+ *       <binding>java.lang.Double</binding>
+ *     </Attribute>
+ *     <Attribute>
+ *       <name>fileDate</name>
+ *       <minOccurs>0</minOccurs>
+ *       <maxOccurs>1</maxOccurs>
+ *       <nillable>true</nillable>
+ *       <binding>java.sql.Timestamp</binding>
+ *     </Attribute>
+ *     <Attribute>
+ *       <name>updated</name>
+ *       <minOccurs>0</minOccurs>
+ *       <maxOccurs>1</maxOccurs>
+ *       <nillable>true</nillable>
+ *       <binding>java.sql.Timestamp</binding>
+ *     </Attribute>
+ *   </attributes>
+ *   <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://localhost:8080/geoserver/rest/workspaces/it.geosolutions/coveragestores/polyphemus/coverages/V/index/granules.xml" type="application/xml"/>
+ * </Schema>
+ * }</PRE>
+ */
 
 /**
  * This decode turns index format for a GeoServer StructuredGridCoverageReader into something
  * useful, giving access to the definition of the single attributes.
  * 
  * <P>This is the XML REST representation:
- * <PRE>
-  {@code
-
-<Schema>
-  <attributes>
-    <Attribute>
-      <name>the_geom</name>
-      <minOccurs>0</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>true</nillable>
-      <binding>com.vividsolutions.jts.geom.Polygon</binding>
-    </Attribute>
-    <Attribute>
-      <name>location</name>
-      <minOccurs>0</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>true</nillable>
-      <binding>java.lang.String</binding>
-    </Attribute>
-    <Attribute>
-      <name>imageindex</name>
-      <minOccurs>0</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>true</nillable>
-      <binding>java.lang.Integer</binding>
-    </Attribute>
-    <Attribute>
-      <name>time</name>
-      <minOccurs>0</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>true</nillable>
-      <binding>java.sql.Timestamp</binding>
-    </Attribute>
-    <Attribute>
-      <name>elevation</name>
-      <minOccurs>0</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>true</nillable>
-      <binding>java.lang.Double</binding>
-    </Attribute>
-    <Attribute>
-      <name>fileDate</name>
-      <minOccurs>0</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>true</nillable>
-      <binding>java.sql.Timestamp</binding>
-    </Attribute>
-    <Attribute>
-      <name>updated</name>
-      <minOccurs>0</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>true</nillable>
-      <binding>java.sql.Timestamp</binding>
-    </Attribute>
-  </attributes>
-  <atom:link xmlns:atom="http://www.w3.org/2005/Atom" rel="alternate" href="http://localhost:8080/geoserver/rest/workspaces/it.geosolutions/coveragestores/polyphemus/coverages/V/index/granules.xml" type="application/xml"/>
-</Schema>
-}</PRE>
  * @author Simone Giannecchini, GeoSolutions SAS
  *
  */
@@ -104,7 +106,7 @@ public class RESTStructuredCoverageIndexSchema implements Iterable<RESTStructure
     private final List<RESTStructuredCoverageIndexAttribute> attributeList;
     
     /**
-     * @param list
+     * @param schema schema
      */
     @SuppressWarnings("unchecked")
     protected RESTStructuredCoverageIndexSchema(Element schema) {
@@ -156,20 +158,23 @@ public class RESTStructuredCoverageIndexSchema implements Iterable<RESTStructure
     public Iterator<RESTStructuredCoverageIndexAttribute> iterator() {
         return attributeList.iterator();
     }
-    
+
+    /*
+     * <PRE>
+     *   {@code
+     *     <Attribute>
+     *       <name>the_geom</name>
+     *       <minOccurs>0</minOccurs>
+     *       <maxOccurs>1</maxOccurs>
+     *       <nillable>true</nillable>
+     *       <binding>com.vividsolutions.jts.geom.Polygon</binding>
+     * </Attribute>
+     */
+
     /**
      * Generic granule of the index.
      *  
- * <P>This is the XML REST representation:
- * <PRE>
-  {@code
-    <Attribute>
-      <name>the_geom</name>
-      <minOccurs>0</minOccurs>
-      <maxOccurs>1</maxOccurs>
-      <nillable>true</nillable>
-      <binding>com.vividsolutions.jts.geom.Polygon</binding>
-    </Attribute>
+     * <P>This is the XML REST representation:
      * @author Simone Giannecchini, GeoSolutions SAS
      *
      */

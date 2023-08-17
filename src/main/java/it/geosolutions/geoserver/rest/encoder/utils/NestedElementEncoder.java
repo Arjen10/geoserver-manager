@@ -25,64 +25,15 @@
 
 package it.geosolutions.geoserver.rest.encoder.utils;
 
-import java.util.Iterator;
-import java.util.List;
-
 import org.jdom.Element;
 import org.jdom.filter.Filter;
 
+import java.util.Iterator;
+import java.util.List;
+
 /**
- * Encodes lists of entries with key attribute. <br/>
- * e.g.:
- * 
- * <PRE>
- * {@code 
- *  <listName>
- *   <entry key="k1">val1</entry>
- *   <entry key="k2">val2</entry>
- *   <entry key="k3">val3</entry>
- * </listName>}
- * 
- * <PRE>
- * 
- * This can be also add compounded Elements <br/>
- * e.g.:
- * 
- * <PRE>
- * {@code 
- * <listName>
- *  <entry key="time">
- *   	<dimensionInfo>
- * 			<enabled>false</enabled>
- * 		</dimensionInfo>
- * 	</entry>
- * 	<entry key="elevation">
- * 		<dimensionInfo>
- * 			<enabled>true</enabled>
- * 			<attribute>ele</attribute>
- * 			<presentation>LIST</presentation>
- * 		</dimensionInfo>
- * 	</entry>
- * </listName>}
- * 
- * This can be also add list of compounded Elements <br/>
- * 
- * <listName>
- *  <entry>
- *   	<String>AllowMultithreading</String>
- * 		<enabled>false</enabled>
- * 	</entry>
- * 	<entry>
- * 		
- * 			<enabled>true</enabled>
- * 			<attribute>ele</attribute>
- * 			<presentation>LIST</presentation>
- * 		</dimensionInfo>
- * 	</entry>
- * </listName>}
- * 
- * <PRE>
- * 
+ * Encodes lists of entries with key attribute.
+ *
  * @author ETj (etj at geo-solutions.it)
  * @author Carlo Cancellieri - carlo.cancellieri@geo-solutions.it
  * 
@@ -101,9 +52,9 @@ public class NestedElementEncoder extends XmlElement {
 		 * if key is null we only check for children name if value is null we
 		 * only check for key attribute
 		 * 
-		 * @param root
-		 * @param key
-		 * @param value
+		 * @param root Element
+		 * @param key key
+		 * @param value value
 		 */
 		public NestedElementFilter(Element root, String key, String value) {
 			this.key = key;

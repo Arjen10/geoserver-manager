@@ -9,7 +9,6 @@ import java.util.List;
 
 /**
  * @author Arjen10
- * @date 2023/7/9 17:11
  */
 @Slf4j
 public class GeoWebCacheRESTReader extends GeoServerRESTAbstractManager {

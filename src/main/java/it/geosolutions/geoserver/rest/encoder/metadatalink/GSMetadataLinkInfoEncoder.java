@@ -26,7 +26,6 @@ package it.geosolutions.geoserver.rest.encoder.metadatalink;
 
 import it.geosolutions.geoserver.rest.encoder.utils.ElementUtils;
 import it.geosolutions.geoserver.rest.encoder.utils.XmlElement;
-
 import org.jdom.Element;
 import org.jdom.filter.Filter;
 
@@ -85,7 +84,7 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/** 
 	 * Get a Filter using the MetadataLinkInfo content (metadataURL)
 	 * 
-	 * @param content
+	 * @param content content
 	 * @return the filter
 	 */
 	public static Filter getFilterByContent(String content) {
@@ -115,9 +114,9 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/** 
 	 * Set-up quickly a metadataLinkInfo
 	 * 
-	 * @param type
-	 * @param metadataType
-	 * @param content
+	 * @param type type
+	 * @param metadataType metadataType
+	 * @param content content
 	 */
 	protected void setup(String type, String metadataType, String content) {
 		set(ResourceMetadataLinkInfo.type.name(), type);
@@ -128,8 +127,8 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/** 
 	 * Set a MetadataLinkInfo member (type, metadataType or content)
 	 * 
-	 * @param type
-	 * @param value
+	 * @param type type
+	 * @param value value
 	 */
 	protected void setMember(ResourceMetadataLinkInfo type,
 			String value) {
@@ -139,7 +138,7 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/**
 	 * Set the mime type
 	 * 
-	 * @param type
+	 * @param type type
 	 */
 	public void setType(String type){
 		this.setMember(ResourceMetadataLinkInfo.type, type);
@@ -148,7 +147,7 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/**
 	 * Set the metadata type
 	 * 
-	 * @param metadataType
+	 * @param metadataType metadataType
 	 */
 	public void setMetadataType(String metadataType){
 		this.setMember(ResourceMetadataLinkInfo.metadataType, metadataType);
@@ -157,7 +156,7 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/**
 	 * Set the content
 	 * 
-	 * @param content
+	 * @param content content
 	 */
 	public void setContent(String content){
 		this.setMember(ResourceMetadataLinkInfo.content, content);
@@ -166,7 +165,7 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/** 
 	 * Deletes a MetadataLinkInfo member
 	 * 
-	 * @param type
+	 * @param type type
 	 * @return true if the metadataLinkInfo member is removed
 	 */
 	protected boolean delMember(ResourceMetadataLinkInfo type) {
@@ -176,7 +175,6 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/**
 	 * Deletes the type
 	 * 
-	 * @param type
 	 * @return true if removed
 	 */
 	public boolean delType(){
@@ -186,7 +184,6 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/**
 	 * Deletes the metadata type
 	 * 
-	 * @param metadata type
 	 * @return true if removed
 	 */
 	public boolean delMetadataType(){
@@ -196,17 +193,16 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/**
 	 * Deletes the content
 	 * 
-	 * @param content
 	 * @return true if removed
 	 */
 	public boolean delContent(){
 		return this.delMember(ResourceMetadataLinkInfo.content);
 	}
-	
-	/** 
+
+	/**
 	 * Get the value of the MetadataLinkInfo member
-	 * 
-	 * @param type
+	 *
+	 * @param type {@link ResourceMetadataLinkInfo}.
 	 * @return the value of the MetadataLinkInfo member
 	 */
 	protected String getMember(ResourceMetadataLinkInfo type) {
@@ -220,7 +216,7 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/**
 	 * Get the mime type
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getType(){
 		return this.getMember(ResourceMetadataLinkInfo.type);		
@@ -229,7 +225,7 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/**
 	 * Get the metadata type
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getMetadataType(){
 		return this.getMember(ResourceMetadataLinkInfo.metadataType);
@@ -238,7 +234,7 @@ public class GSMetadataLinkInfoEncoder extends XmlElement {
 	/**
 	 * Get the content
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getContent(){
 		return this.getMember(ResourceMetadataLinkInfo.content);

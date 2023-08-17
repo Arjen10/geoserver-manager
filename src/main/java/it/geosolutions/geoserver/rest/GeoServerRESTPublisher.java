@@ -470,64 +470,103 @@ public class GeoServerRESTPublisher {
     }
 
     /**
+     *
+     * @param workspace workspace
+     * @param sldBody   sldBody
+     * @return boolean
      * @since GeoServer 2.2
-     * @see GeoServerRESTStyleManager#
      */
     public boolean publishStyleInWorkspace(String workspace, String sldBody) {
         return styleManager.publishStyleInWorkspace(workspace, sldBody);
     }
 
     /**
+     *
+     * @param workspace workspace
+     * @param sldBody   sldBody
+     * @param name      name
+     * @return boolean
+     * @throws IllegalArgumentException IllegalArgumentException
      * @since GeoServer 2.2
-     * @see GeoServerRESTStyleManager#
      */
     public boolean publishStyleInWorkspace(String workspace, String sldBody, String name) throws IllegalArgumentException {
         return styleManager.publishStyleInWorkspace(workspace, sldBody, name);
     }
 
     /**
+     *
+     * @param workspace workspace
+     * @param sldFile   sldFile
+     * @return boolean
+     * @see GeoServerRESTStyleManager#publishStyleInWorkspace(String, File)
      * @since GeoServer 2.2
-     * @see GeoServerRESTStyleManager#publishStyleInWorkspace(java.lang.String, java.io.File)
      */
     public boolean publishStyleInWorkspace(String workspace, File sldFile) {
         return styleManager.publishStyleInWorkspace(workspace, sldFile);
     }
 
     /**
+     *
+     * @param workspace workspace
+     * @param sldFile   sldFile
+     * @param name      name
+     * @return boolean
+     * @see GeoServerRESTStyleManager#publishStyleInWorkspace(String, File, String)
      * @since GeoServer 2.2
-     * @see GeoServerRESTStyleManager#publishStyleInWorkspace(java.lang.String, java.io.File, java.lang.String)
      */
     public boolean publishStyleInWorkspace(String workspace, File sldFile, String name) {
         return styleManager.publishStyleInWorkspace(workspace, sldFile, name);
     }
 
     /**
+     *
+     * @param workspace workspace
+     * @param sldBody   sldBody
+     * @param name      name
+     * @return boolean
+     * @throws IllegalArgumentException IllegalArgumentException
+     * @see GeoServerRESTStyleManager#updateStyleInWorkspace(String, String, String)
      * @since GeoServer 2.2
-     * @see GeoServerRESTStyleManager#updateStyleInWorkspace(java.lang.String, java.lang.String, java.lang.String)
      */
     public boolean updateStyleInWorkspace(String workspace, String sldBody, String name) throws IllegalArgumentException {
         return styleManager.updateStyleInWorkspace(workspace, sldBody, name);
     }
 
     /**
+     *
+     * @param workspace workspace
+     * @param sldFile   sldFile
+     * @param name      name
+     * @return boolean
+     * @throws IllegalArgumentException IllegalArgumentException
+     * @see GeoServerRESTStyleManager#updateStyleInWorkspace(String, File, String)
      * @since GeoServer 2.2
-     * @see GeoServerRESTStyleManager#updateStyleInWorkspace(java.lang.String, java.io.File, java.lang.String)
      */
     public boolean updateStyleInWorkspace(String workspace, File sldFile, String name) throws IllegalArgumentException {
         return styleManager.updateStyleInWorkspace(workspace, sldFile, name);
     }
 
     /**
+     *
+     * @param workspace workspace
+     * @param styleName styleName
+     * @param purge     purge
+     * @return boolean
+     * @throws IllegalArgumentException IllegalArgumentException
+     * @see GeoServerRESTStyleManager#removeStyleInWorkspace(String, String, boolean)
      * @since GeoServer 2.2
-     * @see GeoServerRESTStyleManager#removeStyleInWorkspace(java.lang.String, java.lang.String, boolean)
      */
     public boolean removeStyleInWorkspace(String workspace, String styleName, boolean purge) throws IllegalArgumentException {
         return styleManager.removeStyleInWorkspace(workspace, styleName, purge);
     }
 
     /**
+     *
+     * @param workspace workspace
+     * @param styleName styleName
+     * @return boolean
+     * @see GeoServerRESTStyleManager#removeStyleInWorkspace(String, String)
      * @since GeoServer 2.2
-     * @see GeoServerRESTStyleManager#removeStyleInWorkspace(java.lang.String, java.lang.String)
      */
     public boolean removeStyleInWorkspace(String workspace, String styleName) {
         return styleManager.removeStyleInWorkspace(workspace, styleName);
@@ -556,8 +595,8 @@ public class GeoServerRESTPublisher {
 
         /**
          * @deprecated use {@link StoreType#getTypeNameWithFormat(StoreType, Format)}
-         * @param type
-         * @return
+         * @param type {@link StoreType}
+         * @return String
          */
         public static String getTypeName(StoreType type) {
             return StoreType.getTypeNameWithFormat(type, Format.XML);
@@ -606,7 +645,6 @@ public class GeoServerRESTPublisher {
         /**
          * Get the type name of a StoreType with the specified format.
          * 
-         * @param type the StoreType.
          * @param format see {@link Format}
          * @return "featuretypes.{xml|html|...}" for DATASTORES, "coverages.{xml|html|...}" otherwise.
          */
@@ -660,7 +698,6 @@ public class GeoServerRESTPublisher {
         /**
          * Get the type of a StoreType.
          * 
-         * @param type the StoreType.
          * @return "dataStore" for DATASTORES, "coverageStore" otherwise.
          */
         public String getType() {
@@ -690,18 +727,21 @@ public class GeoServerRESTPublisher {
         /**
          * directly upload a file from a local source. The body of the request is the file itself.
          */
-        FILE, @Deprecated
+        FILE,
+        @Deprecated
         file,
         /**
          * indirectly upload a file from a remote source. The body of the request is the URL where the data is published. This url must be visible
          * from the server.
          */
-        URL, @Deprecated
+        URL,
+        @Deprecated
         url,
         /**
          * forgo upload, and use an existing file on the server. The body of the request is the absolute local path to the existing file.
          */
-        EXTERNAL, @Deprecated
+        EXTERNAL,
+        @Deprecated
         external;
 
         /**
@@ -925,9 +965,9 @@ public class GeoServerRESTPublisher {
 
     /**
      * Create a PostGIS datastore.
-     * 
-     * @deprecated Will be deleted in next version 1.5.x, use {@link GeoServerRESTDatastoreManager} instead.
-     * 
+     *
+     * @deprecated Will be deleted in next version 1.5.x.
+     *
      * @param workspace Name of the workspace to contain the database. This will also be the prefix of any layer names created from tables in the
      *        database.
      * @param datastoreEncoder the set of parameters to be set to the datastore (including connection params).
@@ -1028,14 +1068,12 @@ public class GeoServerRESTPublisher {
      * Upload an publish a local shapefile.
      * <P>
      * The SRS will be set to EPSG:4326.
-     * 
-     * @see {@link #publishShp(String, String, NameValuePair[], String, UploadMethod, URI, String, ProjectionPolicy, String)}
-     * 
+     *
      * @param workspace The workspace name.
      * @param storename The store name.
-     * @param layername The layer name.
+     * @param datasetname The layer name.
      * @param zipFile The zipped file to publish.
-     * 
+     *
      * @return {@code true} if the operation completed successfully.
      * @throws FileNotFoundException , IllegalArgumentException
      */
@@ -1049,15 +1087,15 @@ public class GeoServerRESTPublisher {
      * Publish a shapefile.
      * 
      * @param workspace the name of the workspace to use
-     * @param storename the name of the store to create
+     * @param storeName the name of the store to create
      * @param storeParams parameters to append to the url (can be null).<br>
      *        Accepted parameters are:<br>
      *        <ul>
      *        <li><b>charset</b> used to set the charset</li>
      *        </ul>
-     * @param layername the name of the layer to configure
+     * @param datasetName the name of the layer to configure
      * @param method {@link UploadMethod}
-     * @param fileUri the uri of the file containing the shapefile.It should be:
+     * @param shapefile the uri of the file containing the shapefile.It should be:
      *        <ul>
      *        <li>A zip file if 'method' is file</li>
      *        <li>A shp file if 'method' is external</li>
@@ -1174,15 +1212,15 @@ public class GeoServerRESTPublisher {
      * Publish a shapefile.
      * 
      * @param workspace the name of the workspace to use
-     * @param storename the name of the store to create
+     * @param storeName the name of the store to create
      * @param storeParams parameters to append to the url (can be null).<br>
      *        Accepted parameters are:<br>
      *        <ul>
      *        <li><b>charset</b> used to set the charset</li>
      *        </ul>
-     * @param layername the name of the layer to configure
+     * @param datasetName the name of the layer to configure
      * @param method {@link UploadMethod}
-     * @param fileUri the uri of the file containing the shapefile.It should be:
+     * @param shapefile the uri of the file containing the shapefile.It should be:
      *        <ul>
      *        <li>A zip file if 'method' is file</li>
      *        <li>A shp file if 'method' is external</li>
@@ -1211,15 +1249,15 @@ public class GeoServerRESTPublisher {
      * Publish a shapefile.
      * 
      * @param workspace the name of the workspace to use
-     * @param storename the name of the store to create
+     * @param storeName the name of the store to create
      * @param storeParams parameters to append to the url (can be null).<br>
      *        Accepted parameters are:<br>
      *        <ul>
      *        <li><b>charset</b> used to set the charset</li>
      *        </ul>
-     * @param layername the name of the layer to configure
+     * @param datasetName the name of the layer to configure
      * @param method {@link UploadMethod}
-     * @param fileUri the uri of the file containing the shapefile.It should be:
+     * @param shapefile the uri of the file containing the shapefile.It should be:
      *        <ul>
      *        <li>A zip file if 'method' is file</li>
      *        <li>A shp file if 'method' is external</li>
@@ -1242,8 +1280,7 @@ public class GeoServerRESTPublisher {
     /**
      * Publish a zipped shapefile.
      * 
-     * @see {@link #publishShp(String, String, NameValuePair[], String, UploadMethod, URI, String, ProjectionPolicy, String)}
-     * 
+     *
      * @param workspace the name of the workspace to use
      * @param storename the name of the store to create
      * @param layerName the name of the layer to configure
@@ -1265,8 +1302,7 @@ public class GeoServerRESTPublisher {
     /**
      * Publish a zipped shapefile forcing the srs to the one provided.
      * 
-     * @see {@link #publishShp(String, String, NameValuePair[], String, UploadMethod, URI, String, ProjectionPolicy, String)}
-     * 
+     *
      * @param workspace the name of the workspace to use
      * @param storename the name of the store to create
      * @param layername the name of the layer to configure
@@ -1286,8 +1322,7 @@ public class GeoServerRESTPublisher {
     /**
      * Publish a zipped shapefile.
      * 
-     * @see {@link #publishShp(String, String, NameValuePair[], String, UploadMethod, URI, String, ProjectionPolicy, String)}
-     * 
+     *
      * @param workspace the name of the workspace to use
      * @param storename the name of the store to create
      * @param layername the name of the layer to configure
@@ -1435,7 +1470,6 @@ public class GeoServerRESTPublisher {
         /**
          * Gets the mime type from a format.
          * 
-         * @param f the format key.
          * @return The content-type (mime), or {@code null} if not in the enum.
          */
         public String getContentType() {
@@ -1487,7 +1521,7 @@ public class GeoServerRESTPublisher {
      * @param configure Configure parameter. It may be null.
      * @param update Accepted parameters are:
      *        <ul>
-     *        <li>See <b>{@link #ParameterUpdate}</b></li>
+     *        <li>See <b>{@link ParameterUpdate}</b></li>
      *        </ul>
      * @see #{@link ParameterConfigure}
      * @return true if the operation completed successfully.
@@ -1928,12 +1962,12 @@ public class GeoServerRESTPublisher {
 
     /**
      * Publish a zipped worldimage file. It is assumed that the the zip-file contain the *.prj to set the srs.
-     * 
-     * @param workspace Workspace to use
+     *
+     * @param workspace     Workspace to use
      * @param coveragestore Name of the coveragestore
-     * @param zipFile zip file to upload
-     * 
+     * @param zipFile       zip file to upload
      * @return true if the operation completed successfully.
+     * @throws FileNotFoundException FileNotFoundException
      */
     public boolean publishWorldImage(String workspace, String coveragestore, File zipFile)
             throws FileNotFoundException {
@@ -2062,6 +2096,14 @@ public class GeoServerRESTPublisher {
     }
 
     /**
+     *
+     * @param workspace       workspace
+     * @param storeName       storeName
+     * @param mosaicDir       mosaicDir
+     * @param coverageEncoder coverageEncoder
+     * @param layerEncoder    layerEncoder
+     * @return boolean
+     * @throws FileNotFoundException FileNotFoundException
      * @deprecated use {@link #publishExternalMosaic(String, String, File, GSCoverageEncoder, GSLayerEncoder)}
      */
     public boolean createExternalMosaic(String workspace, String storeName, File mosaicDir,
@@ -2080,7 +2122,6 @@ public class GeoServerRESTPublisher {
      * @param layerEncoder the set of parameters to be set to the layer (defaultstyle, wmspath, ...)
      * 
      * @return true if the operation completed successfully.
-     * @throws FileNotFoundException
      */
     public boolean publishExternalMosaic(String workspace, final String storeName, File mosaicDir,
             GSCoverageEncoder coverageEncoder, GSLayerEncoder layerEncoder)
@@ -2127,11 +2168,14 @@ public class GeoServerRESTPublisher {
 
     /**
      * Remove the Coverage configuration from GeoServer.
-     * <P>
+     * <p>
      * First, the associated layer is removed, then the Coverage configuration itself.
-     * <P>
+     * <p>
      * <B>CHECKME</B> Maybe the coveragestore has to be removed as well.
-     * 
+     *
+     * @param workspace workspace
+     * @param storename storename
+     * @param layerName layerName
      * @return true if the operation completed successfully.
      */
     public boolean unpublishCoverage(String workspace, String storename, String layerName) {
@@ -2190,9 +2234,12 @@ public class GeoServerRESTPublisher {
 
     /**
      * Removes the featuretype and the associated layer.
-     * <P>
+     * <p>
      * You may also want to {@link #removeDatastore(String, String) remove the datastore}.
-     * 
+     *
+     * @param workspace workspace
+     * @param storename storename
+     * @param layerName layerName
      * @return true if the operation completed successfully.
      */
     public boolean unpublishFeatureType(String workspace, String storename, String layerName) {
@@ -2330,7 +2377,7 @@ public class GeoServerRESTPublisher {
      * 
      * @param workspace The name of the workspace
      * @param storename The name of the Datastore to remove.
-     * @param the {@link StoreType} type
+     * @param type {@link StoreType} type
      * @param recurse if remove should be performed recursively
      * @param purge the purge method
      * @throws IllegalArgumentException if workspace or storename are null or empty
@@ -2371,7 +2418,6 @@ public class GeoServerRESTPublisher {
     /**
      * Remove the workspace given Workspace using default parameters
      * 
-     * @see {@link GeoServerRESTPublisher#removeWorkspace(String, boolean)}
      * @param workspace the workspace to remove
      * @return true if success, false otherwise
      * @deprecated {@link #removeWorkspace(String, boolean)}
@@ -2422,8 +2468,7 @@ public class GeoServerRESTPublisher {
     }
 
     /**
-     *  workaround: geoserver does not delete styles inside workspaces
-     * https://jira.codehaus.org/browse/GEOS-5986
+     * <a href="https://jira.codehaus.org/browse/GEOS-5986">workaround: geoserver does not delete styles inside workspaces</a>
      */
     private void deleteStylesForWorkspace(String workspace) {
         RESTStyleList styles = styleManager.getStyles(workspace);
@@ -2481,8 +2526,8 @@ public class GeoServerRESTPublisher {
     /**
      * remove a generic given layer from a given workspace
      * 
-     * @param workspace
-     * @param layerName
+     * @param workspace the layer group workspace.
+     * @param layerName layerName
      * @return true if success
      */
     public boolean removeLayer(final String workspace, final String layerName) {
@@ -2530,13 +2575,12 @@ public class GeoServerRESTPublisher {
 
     /**
      * 
-     * /workspaces/<ws>/datastores/<ds>.xml /workspaces/<ws>/coveragestores/<ds>.xml
+     * /workspaces/ws/datastores/ds.xml /workspaces/ws/coveragestores/ds.xml
      * 
-     * @param workspace
-     * @param storeName
-     * @param mosaicDir
+     * @param workspace the layer group workspace.
+     * @param storeName layerName
+     * @param storeType {@link StoreType}
      * @return true if successfully reloaded
-     * @throws FileNotFoundException
      * @throws IllegalArgumentException
      */
     public boolean reloadStore(String workspace, final String storeName, StoreType storeType)
@@ -2601,13 +2645,12 @@ public class GeoServerRESTPublisher {
     /**
      * Allows to configure some layer attributes such as DefaultStyle
      * 
-     * @param workspace
+     * @param workspace the layer group workspace.
      * @param resourceName the name of the resource to use (featureStore or coverageStore name)
      * @param layer the layer encoder used to configure the layer
      * @return true if success
      * @throws IllegalArgumentException if some arguments are null or empty
      * 
-     * @TODO WmsPath
      */
     public boolean configureLayer(final String workspace, final String resourceName,
             final GSLayerEncoder layer) throws IllegalArgumentException {
@@ -2805,6 +2848,11 @@ public class GeoServerRESTPublisher {
     }
 
     /**
+     *
+     * @param ce     ce
+     * @param wsname wsname
+     * @param csname csname
+     * @return boolean
      * @deprecated use {@link #createCoverage(String, String, GSCoverageEncoder)}
      */
     public boolean createCoverage(final GSCoverageEncoder ce, final String wsname,
@@ -2829,18 +2877,13 @@ public class GeoServerRESTPublisher {
     /**
      * Create a new resource in a given workspace and store
      * 
-     * @param wsname the workspace to search for existent coverage
+     * @param workspace the workspace to search for existent coverage
      * @param storeName an existent store name to use as data source
      * @param re contains the coverage name to create and the configuration to apply
-     * 
-     * @TODO For FeatureType: The list parameter is used to control the category of feature types that are returned. It can take one of the three
-     *       values configured, available, or all.
-     * 
      *       configured - Only setup or configured feature types are returned. This is the default value. available - Only unconfigured feature types
      *       (not yet setup) but are available from the specified datastore will be returned. available_with_geom - Same as available but only
      *       includes feature types that have a geometry granule. all - The union of configured and available.
-     * 
-     * 
+     *
      * @return true if success
      * @throws IllegalArgumentException if arguments are null or empty
      */
@@ -2876,7 +2919,11 @@ public class GeoServerRESTPublisher {
     }
 
     /**
+     * 清洁
      * Appends ".DUMMY" to any string containing a dot (<i>sic</i>).
+     *
+     * @param s s
+     * @return {@link String}
      */
     protected String sanitize(String s) {
         if (s.indexOf(".") != -1) {
@@ -2957,7 +3004,7 @@ public class GeoServerRESTPublisher {
      * @param workspace the GeoServer workspace
      * @param coverageStore the GeoServer coverageStore
      * @param format the format of the file to upload
-     * @param the absolut path to the file to upload
+     * @param path absolut path to the file to upload
      * 
      * @return <code>true</code> if the call succeeds or <code>false</code> otherwise.
      */
@@ -2983,7 +3030,7 @@ public class GeoServerRESTPublisher {
      * 
      * @param workspace the GeoServer workspace
      * @param coverageStore the GeoServer coverageStore
-     * @param the absolute path to the file to upload
+     * @param path absolute path to the file to upload
      * 
      * @return <code>true</code> if the call succeeds or <code>false</code> otherwise.
      * @since geoserver-2.4.0, geoserver-mng-1.6.0
@@ -3000,7 +3047,7 @@ public class GeoServerRESTPublisher {
      * 
      * @param workspace the GeoServer workspace
      * @param coverageStore the GeoServer coverageStore
-     * @param the absolute path to the file to upload
+     * @param path absolute path to the file to upload
      * @param configureOpt tells GeoServer whether to configure all coverages in this mosaic (ALL) or none of them (NONE).
      * 
      * @return <code>true</code> if the call succeeds or <code>false</code> otherwise.
@@ -3059,12 +3106,10 @@ public class GeoServerRESTPublisher {
      * @param workspace the GeoServer workspace
      * @param coverageStore the GeoServer coverageStore
      * @param coverage the name of the target coverage from which we are going to remove
-     * @param filter the absolute path to the file to upload
+     * @param granuleId granuleId
      * 
      * @return <code>null</code> in case the call does not succeed, or an instance of {@link RESTStructuredCoverageGranulesList}.
-     * 
-     * @throws MalformedURLException
-     * @throws UnsupportedEncodingException
+     *
      */
     public boolean removeGranuleById(final String workspace, String coverageStore, String coverage,
             String granuleId) {
@@ -3093,8 +3138,7 @@ public class GeoServerRESTPublisher {
      * @param filter the absolute path to the file to upload
      * 
      * @return <code>null</code> in case the call does not succeed, or an instance of {@link RESTStructuredCoverageGranulesList}.
-     * 
-     * @throws MalformedURLException
+     *
      * @throws UnsupportedEncodingException
      */
     public boolean removeGranulesByCQL(final String workspace, String coverageStore,
@@ -3135,54 +3179,68 @@ public class GeoServerRESTPublisher {
     }
 
     /**
-     * Refers to {@link it.geosolutions.geoserver.rest.manager.GeoServerRESTImporterManager#postNewImport() postNewImport} method
-     * 
-     * @throws Exception 
+     * Refers to {@link GeoServerRESTImporterManager#postNewImport() postNewImport} method
+     *
+     * @return int
+     * @throws Exception Exception
      */
     public int postNewImport() throws Exception {
         return importerManager.postNewImport();
     }
 
     /**
-     * Refers to {@link it.geosolutions.geoserver.rest.manager.GeoServerRESTImporterManager#postNewTaskAsMultiPartForm(int, String) postNewTaskAsMultiPartForm} method
-     * 
-     * @throws Exception 
+     * Refers to {@link GeoServerRESTImporterManager#postNewTaskAsMultiPartForm(int, String) postNewTaskAsMultiPartForm} method
+     *
+     * @param i    i
+     * @param data data
+     * @return int
+     * @throws Exception Exception
      */
     public int postNewTaskAsMultiPartForm(int i, String data) throws Exception {
         return importerManager.postNewTaskAsMultiPartForm(i, data);
     }
 
     /**
-     * Refers to {@link it.geosolutions.geoserver.rest.manager.GeoServerRESTImporterManager#getTask(int, int) getTask} method
-     * 
-     * @throws Exception 
+     * Refers to {@link GeoServerRESTImporterManager#getTask(int, int) getTask} method
+     *
+     * @param i i
+     * @param t t
+     * @return {@link JSONObject}
+     * @throws Exception Exception
      */
     public JSONObject getTask(int i, int t) throws Exception {
         return importerManager.getTask(i, t);
     }
 
     /**
-     * Refers to {@link it.geosolutions.geoserver.rest.manager.GeoServerRESTImporterManager#putTask(int, int, String) putTask} method
-     * 
-     * @throws Exception 
+     * Refers to {@link GeoServerRESTImporterManager#putTask(int, int, String) putTask} method
+     *
+     * @param i    i
+     * @param t    t
+     * @param json json
+     * @throws Exception Exception
      */
     public void putTask(int i, int t, String json) throws Exception {
         importerManager.putTask(i, t, json);
     }
 
     /**
-     * Refers to {@link it.geosolutions.geoserver.rest.manager.GeoServerRESTImporterManager#putTaskLayer(int, int, String) putTaskLayer} method
-     * 
-     * @throws Exception 
+     * Refers to {@link GeoServerRESTImporterManager#putTaskLayer(int, int, String) putTaskLayer} method
+     *
+     * @param i    i
+     * @param t    t
+     * @param json json
+     * @throws Exception Exception
      */
     public void putTaskLayer(int i, int t, String json) throws Exception {
         importerManager.putTaskLayer(i, t, json);
     }
-    
+
     /**
-     * Refers to {@link it.geosolutions.geoserver.rest.manager.GeoServerRESTImporterManager#postImport(int) postImport} method
-     * 
-     * @throws Exception 
+     * Refers to {@link GeoServerRESTImporterManager#postImport(int) postImport} method
+     *
+     * @param i i
+     * @throws Exception Exception
      */
     public void postImport(int i) throws Exception {
         importerManager.postImport(i);

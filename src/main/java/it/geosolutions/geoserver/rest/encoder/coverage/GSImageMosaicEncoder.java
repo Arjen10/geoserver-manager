@@ -26,13 +26,12 @@ package it.geosolutions.geoserver.rest.encoder.coverage;
 
 import it.geosolutions.geoserver.rest.encoder.utils.ElementUtils;
 import it.geosolutions.geoserver.rest.encoder.utils.NestedElementEncoder;
+import org.jdom.Element;
+import org.jdom.filter.Filter;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-
-import org.jdom.Element;
-import org.jdom.filter.Filter;
 
 /**
  * Use this encoder for ImageMosaic coverages.
@@ -103,7 +102,7 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
     public final static String allowMultithreading = "AllowMultithreading";
 
     /**
-     * @param val
+     * @param val boolean
      */
     protected void addAllowMultithreading(final boolean val) {
         final List<Element> list = new ArrayList<Element>(2);
@@ -141,7 +140,7 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
     public final static String filter = "Filter";
 
     /**
-     * @param val
+     * @param val val
      */
     protected void addFilter(final String val) {
         final List<Element> list = new ArrayList<Element>(2);
@@ -176,7 +175,7 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
     public final static String maxAllowedTiles = "MaxAllowedTiles";
     
     /**
-     * @param val
+     * @param val val
      */
     protected void addMaxAllowedTiles(final int val) {
         final List<Element> list = new ArrayList<Element>(2);
@@ -213,7 +212,7 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
     public final static String inputTransparentColor = "InputTransparentColor";
 
     /**
-     * @param val
+     * @param val val
      */
     protected void addInputTransparentColor(final String val) {
         final List<Element> list = new ArrayList<Element>(2);
@@ -251,7 +250,7 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
     public final static String outputTransparentColor = "OutputTransparentColor";
 
     /**
-     * @param val
+     * @param val val
      */
     protected void addOutputTransparentColor(final String val) {
         final List<Element> list = new ArrayList<Element>(2);
@@ -287,7 +286,7 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
     public final static String SUGGESTED_TILE_SIZE = "SUGGESTED_TILE_SIZE";
 
     /**
-     * @param val
+     * @param val val
      */
     protected void addSUGGESTED_TILE_SIZE(final String val) {
         final List<Element> list = new ArrayList<Element>(2);
@@ -324,9 +323,6 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
     //
     public final static String USE_JAI_IMAGEREAD = "USE_JAI_IMAGEREAD";
 
-    /**
-     * @param val
-     */
     protected void addUSE_JAI_IMAGEREAD(final boolean val) {
         final List<Element> list = new ArrayList<Element>(2);
         list.add(new Element(STRING).setText(USE_JAI_IMAGEREAD));
@@ -360,9 +356,6 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
     //
     public final static String backgroundValues = "BackgroundValues";
 
-    /**
-     * @param val
-     */
     protected void addBackgroundValues(final String val) {
         final List<Element> list = new ArrayList<Element>(2);
         list.add(new Element(STRING).setText(backgroundValues));
@@ -395,9 +388,6 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
     //
     public final static String SORTING = "SORTING";
 
-    /**
-     * @param val
-     */
     protected void addSORTING(final String val) {
         final List<Element> list = new ArrayList<Element>(2);
         list.add(new Element(STRING).setText(SORTING));
@@ -418,9 +408,6 @@ public class GSImageMosaicEncoder extends GSCoverageEncoder {
     
     public final static String MERGEBEHAVIOR = "MergeBehavior";
 
-    /**
-     * @param val
-     */
     protected void addMergeBehavior(final String val) {
         final List<Element> list = new ArrayList<Element>(2);
         list.add(new Element(STRING).setText(MERGEBEHAVIOR));

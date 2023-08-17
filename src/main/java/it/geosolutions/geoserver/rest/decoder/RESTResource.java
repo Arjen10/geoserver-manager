@@ -31,13 +31,12 @@ import it.geosolutions.geoserver.rest.encoder.feature.FeatureTypeAttribute;
 import it.geosolutions.geoserver.rest.encoder.feature.GSAttributeEncoder;
 import it.geosolutions.geoserver.rest.encoder.metadatalink.GSMetadataLinkInfoEncoder;
 import it.geosolutions.geoserver.rest.encoder.metadatalink.ResourceMetadataLinkInfo;
+import org.jdom.Element;
+import org.jdom.Namespace;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import org.jdom.Element;
-import org.jdom.Namespace;
 
 /**
  * Parse a resource (FeatureType or Coverage) returned as XML REST objects.
@@ -155,8 +154,7 @@ public class RESTResource {
 
     /**
      * @deprecated use {@link RESTFeatureType#getAttributeList()}
-     * @return
-     * @throws UnsupportedOperationException
+     * @return List<Map<FeatureTypeAttribute, String>>
      */
     public List<Map<FeatureTypeAttribute, String>> getAttributeList() {
         throw new UnsupportedOperationException("This method is specific for RESTFeatureType");
@@ -164,8 +162,7 @@ public class RESTResource {
 
     /**
      * @deprecated use {@link RESTFeatureType#getEncodedAttributeList()}
-     * @return
-     * @throws UnsupportedOperationException
+     * @return List<Map<FeatureTypeAttribute, String>>
      */
     public List<GSAttributeEncoder> getEncodedAttributeList() {
         throw new UnsupportedOperationException("This method is specific for RESTFeatureType");

@@ -28,7 +28,6 @@ import it.geosolutions.geoserver.rest.GeoServerRESTPublisher;
 import it.geosolutions.geoserver.rest.GeoServerRESTPublisher.StoreType;
 import it.geosolutions.geoserver.rest.encoder.utils.ElementUtils;
 import it.geosolutions.geoserver.rest.encoder.utils.PropertyXMLEncoder;
-
 import org.jdom.Element;
 
 /**
@@ -106,7 +105,7 @@ public abstract class GSAbstractStoreEncoder extends PropertyXMLEncoder {
      * Check type validity.
      * 
      * @param type the type.
-     * @throws IllegalArgumentException if type is not {@value #TYPE}
+     * @throws IllegalArgumentException if type is not
      */
     protected void ensureValidType(String type) {
         if (!type.equals(getValidType())) {
@@ -115,7 +114,10 @@ public abstract class GSAbstractStoreEncoder extends PropertyXMLEncoder {
     }
 
     /**
+     * 得到有效类型
      * The type of the implementing store.
+     *
+     * @return {@link String}
      */
     protected abstract String getValidType();
 }

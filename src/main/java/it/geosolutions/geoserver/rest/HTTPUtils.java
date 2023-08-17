@@ -25,42 +25,25 @@
 
 package it.geosolutions.geoserver.rest;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.ConnectException;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
-
 import net.sf.json.JSON;
 import net.sf.json.JSONSerializer;
-
-import org.apache.commons.httpclient.Credentials;
-import org.apache.commons.httpclient.HttpClient;
-import org.apache.commons.httpclient.HttpConnectionManager;
-import org.apache.commons.httpclient.HttpStatus;
-import org.apache.commons.httpclient.UsernamePasswordCredentials;
+import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.auth.AuthScope;
-import org.apache.commons.httpclient.methods.DeleteMethod;
-import org.apache.commons.httpclient.methods.EntityEnclosingMethod;
-import org.apache.commons.httpclient.methods.FileRequestEntity;
-import org.apache.commons.httpclient.methods.GetMethod;
-import org.apache.commons.httpclient.methods.PostMethod;
-import org.apache.commons.httpclient.methods.PutMethod;
-import org.apache.commons.httpclient.methods.RequestEntity;
-import org.apache.commons.httpclient.methods.StringRequestEntity;
+import org.apache.commons.httpclient.methods.*;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
 import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.*;
+import java.net.ConnectException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Low level HTTP utilities.
@@ -74,7 +57,7 @@ public class HTTPUtils {
      * @param url The URL where to connect to.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
+     * @throws MalformedURLException MalformedURLException
      */
     public static String get(String url) throws MalformedURLException {
         return get(url, null, null);
@@ -89,7 +72,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      */
     public static String get(String url, String username, String pw) {
         GetMethod httpMethod = null;
@@ -129,7 +111,7 @@ public class HTTPUtils {
     /**
      * Executes a request using the GET method and parses the result as a json object.
      * 
-     * @param path The path to request.
+     * @param url The url to request.
      *  
      * @return The result parsed as json.
      */
@@ -153,7 +135,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String put(String url, File file, String contentType, String username, String pw) {
@@ -171,7 +152,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String put(String url, String content, String contentType, String username, String pw) {
@@ -193,7 +173,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String putXml(String url, String content, String username, String pw) {
@@ -210,7 +189,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String putJson(String url, String content, String username, String pw) {
@@ -227,7 +205,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String put(String url, RequestEntity requestEntity, String username, String pw) {
@@ -245,7 +222,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String post(String url, File file, String contentType, String username, String pw) {
@@ -263,7 +239,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String post(String url, String content, String contentType, String username, String pw) {
@@ -285,7 +260,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String postMultipartForm(String url, File dir, String username, String pw) {
@@ -317,7 +291,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String postXml(String url, String content, String username, String pw) {
@@ -334,7 +307,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String postJson(String url, String content, String username, String pw) {
@@ -351,7 +323,6 @@ public class HTTPUtils {
      * @param pw Basic auth credential. No basic auth if null.
      * @return The HTTP response as a String if the HTTP response code was 200
      *         (OK).
-     * @throws MalformedURLException
      * @return the HTTP response or <TT>null</TT> on errors.
      */
     public static String post(String url, RequestEntity requestEntity, String username, String pw) {
@@ -455,12 +426,23 @@ public class HTTPUtils {
     }
 
     /**
+     * httpPing
+     *
+     * @param url url
      * @return true if the server response was an HTTP_OK
      */
     public static boolean httpPing(String url) {
         return httpPing(url, null, null);
     }
 
+    /**
+     * httpPing
+     *
+     * @param url      url
+     * @param username username
+     * @param pw       pw
+     * @return boolean
+     */
     public static boolean httpPing(String url, String username, String pw) {
 
         GetMethod httpMethod = null;
@@ -493,8 +475,8 @@ public class HTTPUtils {
      * Used to query for REST resources.
      * 
      * @param url The URL of the REST resource to query about.
-     * @param username
-     * @param pw
+     * @param username username
+     * @param pw pw
      * @return true on 200, false on 404.
      * @throws RuntimeException on unhandled status or exceptions.
      */
@@ -526,6 +508,15 @@ public class HTTPUtils {
         }
     }
 
+    /**
+     * setAuth
+     *
+     * @param client   client
+     * @param url      url
+     * @param username username
+     * @param pw       pw
+     * @throws MalformedURLException MalformedURLException
+     */
     private static void setAuth(HttpClient client, String url, String username, String pw)
         throws MalformedURLException {
         URL u = new URL(url);
@@ -545,7 +536,7 @@ public class HTTPUtils {
     }
 
     /**
-     * @param geoserverURL
+     * @param geoserverURL geoserverURL
      * @return recursively remove ending slashes 
      */
     public static String decurtSlash(String geoserverURL) {

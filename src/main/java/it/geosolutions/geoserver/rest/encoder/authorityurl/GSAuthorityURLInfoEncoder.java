@@ -26,7 +26,6 @@ package it.geosolutions.geoserver.rest.encoder.authorityurl;
 
 import it.geosolutions.geoserver.rest.encoder.utils.ElementUtils;
 import it.geosolutions.geoserver.rest.encoder.utils.XmlElement;
-
 import org.jdom.Element;
 import org.jdom.filter.Filter;
 
@@ -58,8 +57,6 @@ public class GSAuthorityURLInfoEncoder extends XmlElement {
 
 	/**
 	 * A class to filter the AuthorityURL by href
-	 * 
-	 * 
 	 */
 	private static class filterByHref implements Filter {
 
@@ -84,7 +81,7 @@ public class GSAuthorityURLInfoEncoder extends XmlElement {
 	/**
 	 * Get a Filter using the AuthorityURLInfo href (authorityURL)
 	 * 
-	 * @param href
+	 * @param href href
 	 * @return the filter
 	 */
 	public static Filter getFilterByHref(String href) {
@@ -115,8 +112,8 @@ public class GSAuthorityURLInfoEncoder extends XmlElement {
 	/**
 	 * Set-up quickly an AuthorityURL info
 	 * 
-	 * @param name
-	 * @param href
+	 * @param name name
+	 * @param href href
 	 */
 	protected void setup(String name, String href) {
 		set(AuthorityURLInfo.name.name(), name);
@@ -126,8 +123,8 @@ public class GSAuthorityURLInfoEncoder extends XmlElement {
 	/**
 	 * Set an AuthorityURLInfo member (name, href)
 	 * 
-	 * @param type
-	 * @param value
+	 * @param type type
+	 * @param value value
 	 */
 	protected void setMember(AuthorityURLInfo type, String value) {
 		set(type.toString(), value);
@@ -136,7 +133,7 @@ public class GSAuthorityURLInfoEncoder extends XmlElement {
 	/**
 	 * Set the name
 	 * 
-	 * @param name
+	 * @param name name
 	 */
 	public void setName(String name) {
 		this.setMember(AuthorityURLInfo.name, name);
@@ -145,7 +142,7 @@ public class GSAuthorityURLInfoEncoder extends XmlElement {
 	/**
 	 * Set the href
 	 * 
-	 * @param href
+	 * @param href href
 	 */
 	public void setHref(String href) {
 		this.setMember(AuthorityURLInfo.href, href);
@@ -154,7 +151,7 @@ public class GSAuthorityURLInfoEncoder extends XmlElement {
 	/**
 	 * Deletes an AuthorityURLInfo member
 	 * 
-	 * @param type
+	 * @param type type
 	 * @return true if the AuthorityURLInfo member is removed
 	 */
 	protected boolean delMember(AuthorityURLInfo type) {
@@ -183,7 +180,7 @@ public class GSAuthorityURLInfoEncoder extends XmlElement {
 	/**
 	 * Get the value of the AuthorityURLInfo member
 	 * 
-	 * @param type
+	 * @param type type
 	 * @return the value of the AuthorityURLInfo member
 	 */
 	protected String getMember(AuthorityURLInfo type) {
@@ -197,7 +194,7 @@ public class GSAuthorityURLInfoEncoder extends XmlElement {
 	/**
 	 * Get the name
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getName() {
 		return this.getMember(AuthorityURLInfo.name);
@@ -206,7 +203,7 @@ public class GSAuthorityURLInfoEncoder extends XmlElement {
 	/**
 	 * Get the href
 	 * 
-	 * @return
+	 * @return String
 	 */
 	public String getHref() {
 		return this.getMember(AuthorityURLInfo.href);

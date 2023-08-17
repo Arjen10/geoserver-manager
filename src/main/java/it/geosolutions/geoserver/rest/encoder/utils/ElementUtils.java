@@ -25,14 +25,14 @@
 
 package it.geosolutions.geoserver.rest.encoder.utils;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-
 import org.jdom.Element;
 import org.jdom.filter.Filter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 
 /**
  * 
@@ -81,11 +81,9 @@ public abstract class ElementUtils {
 
 	/**
 	 * 
-	 * @param root
-	 * @param filter
-	 * @param depth
-	 *            the max depth to search. Use {@link contains(final Element
-	 *            root, final Filter filter)} for an infinite depth search
+	 * @param root {@link Element}
+	 * @param filter {@link Filter}
+	 * @param depth the max depth to search.
 	 * @return
 	 * @throws IllegalArgumentException
 	 */
@@ -151,9 +149,8 @@ public abstract class ElementUtils {
 	}
 
 	/**
-	 * @param root
-	 * @param name
-	 * @param val
+	 * @param root #{@link Element}
+	 * @param filter #{@link Filter}
 	 * @return the FIRST element matching the passed filter or null
 	 */
 	public static Element contains(final Element root, final Filter filter) throws IllegalArgumentException {
@@ -169,9 +166,9 @@ public abstract class ElementUtils {
 	}
 	
 	/**
-	 * @param root
-	 * @param name
-	 * @param val
+	 * @param root #{@link Element}
+	 * @param name #{@link Filter}
+	 * @param val val
 	 * @return the FIRST element EQUALS to a node with name and a text value
 	 *         starting from root or null
 	 */
@@ -202,12 +199,12 @@ public abstract class ElementUtils {
 	}
 
 	
-	/**
+		/**
          * return the FIRST element with name equals to the passed key
          * 
-         * @param root
-         * @param name
-         * @return
+         * @param root #{@link Element}
+         * @param name name
+         * @return #{@link Element}
          */
         public static Element contains(final Element root, final String name){
             return contains(root, name, -1);
@@ -216,9 +213,9 @@ public abstract class ElementUtils {
 	/**
 	 * return the FIRST element with name equals to the passed key
 	 * 
-	 * @param root
-	 * @param name
-	 * @return
+	 * @param root #{@link Element}
+	 * @param name name
+	 * @return #{@link Element}
 	 */
 	public static Element contains(final Element root, final String name, final int deep)
 			throws IllegalArgumentException {
@@ -248,8 +245,8 @@ public abstract class ElementUtils {
 	}
 
 	/**
-	 * @param root
-	 * @param el
+	 * @param root #{@link Element}
+	 * @param el #{@link Element}
 	 * @return the FIRST element EQUALS to the 'el' starting from root or null
 	 *         This tests for equality of this Content object to the supplied
 	 *         object. Content items are considered equal only if they are

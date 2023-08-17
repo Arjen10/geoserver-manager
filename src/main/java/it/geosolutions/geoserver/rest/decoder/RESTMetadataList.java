@@ -21,12 +21,12 @@
  */
 package it.geosolutions.geoserver.rest.decoder;
 
+import org.jdom.Element;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-
-import org.jdom.Element;
 
 /**
  * @author DamianoG
@@ -35,10 +35,7 @@ import org.jdom.Element;
 public class RESTMetadataList implements Iterable<RESTMetadataList.RESTMetadataElement> {
 
     private final List<Element> metadataList;
-    
-    /**
-     * @param list
-     */
+
     protected RESTMetadataList(Element list) {
        List<Element> tmpList = new ArrayList<Element>();
        for(Element el : (List<Element>)list.getChildren("entry")){
@@ -72,7 +69,7 @@ public class RESTMetadataList implements Iterable<RESTMetadataList.RESTMetadataE
         private final Iterator<Element> iter;
         
         /**
-         * @param iter
+         * @param orig orig
          */
         public RESTMetadataIterator(List<Element> orig) {
             this.iter = orig.iterator();

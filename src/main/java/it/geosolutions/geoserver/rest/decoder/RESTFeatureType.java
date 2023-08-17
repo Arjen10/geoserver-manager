@@ -29,21 +29,11 @@ import it.geosolutions.geoserver.rest.decoder.utils.JDOMBuilder;
 import it.geosolutions.geoserver.rest.decoder.utils.JDOMListIterator;
 import it.geosolutions.geoserver.rest.encoder.feature.FeatureTypeAttribute;
 import it.geosolutions.geoserver.rest.encoder.feature.GSAttributeEncoder;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
 import org.jdom.Element;
 
-/**
- * Parse <TT>FeatureType</TT>s returned as XML REST objects.
- *
- * <P>This is the XML REST representation:
- * <PRE>
- * {@code
+import java.util.*;
+
+/*
 <featureType>
   <name>tasmania_cities</name>
   <nativeName>tasmania_cities</nativeName>
@@ -133,7 +123,12 @@ import org.jdom.Element;
   <maxFeatures>0</maxFeatures>
   <numDecimals>0</numDecimals>
 </featureType>
- * }</PRE>
+ */
+
+/**
+ * Parse <TT>FeatureType</TT>s returned as XML REST objects.
+ *
+ * <P>This is the XML REST representation:
  * @author etj
  */
 public class RESTFeatureType extends RESTResource {
@@ -192,7 +187,7 @@ public class RESTFeatureType extends RESTResource {
 //		return rootElem.getChild("store").getAttributeValue("class");
 //	}
 
-    /**
+    /*
      * Get the URL to retrieve the featuretype.
      * <PRE>{@code
         <resource class="featureType">
@@ -201,34 +196,6 @@ public class RESTFeatureType extends RESTResource {
     </resource>
      * }</CODE>
      */
-//    public String getStoreUrl() {
-//		Element store = rootElem.getChild("store");
-//        Element atom = store.getChild("link", Namespace.getNamespace("atom", "http://www.w3.org/2005/Atom"));
-//        return atom.getAttributeValue("href");
-//    }
-
-//	public String getCRS() {
-//		Element elBBox = rootElem.getChild("latLonBoundingBox");
-//		return elBBox.getChildText("crs");
-//	}
-//
-//	protected double getLatLonEdge(String edge) {
-//		Element elBBox = rootElem.getChild("latLonBoundingBox");
-//		return Double.parseDouble(elBBox.getChildText(edge));
-//	}
-//
-//	public double getMinX() {
-//		return getLatLonEdge("minx");
-//	}
-//	public double getMaxX() {
-//		return getLatLonEdge("maxx");
-//	}
-//	public double getMinY() {
-//		return getLatLonEdge("miny");
-//	}
-//	public double getMaxY() {
-//		return getLatLonEdge("maxy");
-//	}
 
     public Iterable<Attribute> getAttributes() {
 
@@ -253,7 +220,7 @@ public class RESTFeatureType extends RESTResource {
     }
     
     /**
-     * @return
+     * @return  List<Map<FeatureTypeAttribute, String>>
      */
     public List<Map<FeatureTypeAttribute, String>> getAttributeList() {
         List<Map<FeatureTypeAttribute, String>> attrsList = null;
