@@ -41,6 +41,8 @@ import java.net.ConnectException;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -82,14 +84,17 @@ public class HTTPUtils {
             connectionManager.getParams().setConnectionTimeout(5000);
             int status = client.executeMethod(httpMethod);
             if (status == HttpStatus.SC_OK) {
-                InputStream is = httpMethod.getResponseBodyAsStream();
-                String response = IOUtils.toString(is);
-                IOUtils.closeQuietly(is);
-                if (response.trim().length() == 0) { // sometime gs rest fails
-                    LOGGER.warn("ResponseBody is empty");
-                    return null;
-                } else {
-                    return response;
+                try (InputStream is = httpMethod.getResponseBodyAsStream()) {
+                    String responseCharSet = httpMethod.getResponseCharSet();
+                    Charset charset = responseCharSet == null || responseCharSet.isEmpty()
+                            ? StandardCharsets.UTF_8 : Charset.forName(responseCharSet);
+                    String response = IOUtils.toString(is, charset);
+                    if (response.trim().length() == 0) { // sometime gs rest fails
+                        LOGGER.warn("ResponseBody is empty");
+                        return null;
+                    } else {
+                        return response;
+                    }
                 }
             } else {
                 LOGGER.info("(" + status + ") " + HttpStatus.getStatusText(status) + " -- " + url);
