@@ -299,7 +299,6 @@
         <commons-io.version>2.13.0</commons-io.version>
         <commons-httpclient.version>3.1</commons-httpclient.version>
         <jdom.version>1.1</jdom.version>
-        <json.version>2.4</json.version>
         <restlet.version>1.1.10_3</restlet.version>
         <lombok.version>1.18.28</lombok.version>
         <jackson.version>2.15.0</jackson.version>
