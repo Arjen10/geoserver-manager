@@ -25,8 +25,7 @@
 
 package it.geosolutions.geoserver.rest;
 
-import net.sf.json.JSON;
-import net.sf.json.JSONSerializer;
+import com.fasterxml.jackson.databind.JsonNode;
 import org.apache.commons.httpclient.*;
 import org.apache.commons.httpclient.auth.AuthScope;
 import org.apache.commons.httpclient.methods.*;
@@ -115,13 +114,13 @@ public class HTTPUtils {
      *  
      * @return The result parsed as json.
      */
-    public static JSON getAsJSON(String url, String username, String pw) throws Exception {
+    public static JsonNode getAsJSON(String url, String username, String pw) throws Exception {
         String response = get(url, username, pw);
-        return json(response);
+        return JacksonUtil.readTree(response);
     }
     
-    public static JSON json(String content) {
-        return JSONSerializer.toJSON(content);
+    public static JsonNode json(String content) {
+        return JacksonUtil.readTree(content);
     }
     
     /**

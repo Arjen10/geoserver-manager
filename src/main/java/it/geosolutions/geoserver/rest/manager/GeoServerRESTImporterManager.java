@@ -24,9 +24,8 @@
  */
 package it.geosolutions.geoserver.rest.manager;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import it.geosolutions.geoserver.rest.HTTPUtils;
-import net.sf.json.JSON;
-import net.sf.json.JSONObject;
 import org.restlet.data.MediaType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -59,12 +58,12 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      * Retrieves the Import JSON Object given its identifier
      *
      * @param imp int: Import context number ID
-     * @return {@link JSONObject}
+     * @return {@link JsonNode}
      * @throws Exception Exception
      */
-    public JSONObject getImport(int imp) throws Exception {
-        JSON json = HTTPUtils.getAsJSON(String.format(buildUrl()+"/%d", imp), gsuser , gspass);
-        return ((JSONObject)json).getJSONObject("import");
+    public JsonNode getImport(int imp) throws Exception {
+        JsonNode asJSON = HTTPUtils.getAsJSON(String.format(buildUrl() + "/%d", imp), gsuser, gspass);
+        return asJSON.at("/import");
     }
 
     /**
@@ -72,12 +71,12 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
      *
      * @param imp  int: Import context number ID
      * @param task int: Task number
-     * @return {@link JSONObject}
+     * @return {@link JsonNode}
      * @throws Exception Exception
      */
-    public JSONObject getTask(int imp, int task) throws Exception {
-        JSON json = HTTPUtils.getAsJSON(String.format(buildUrl()+"/%d/tasks/%d?expand=all", imp, task), gsuser , gspass);
-        return ((JSONObject)json).getJSONObject("task");
+    public JsonNode getTask(int imp, int task) throws Exception {
+        JsonNode node = HTTPUtils.getAsJSON(String.format(buildUrl() + "/%d/tasks/%d?expand=all", imp, task), gsuser, gspass);
+        return node.at("/task");
     }
 
     /**
@@ -208,10 +207,8 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
     public int postNewImport(String body) {
         String resp = body == null ? HTTPUtils.post(buildUrl(), "", "text/plain", gsuser, gspass)
             : HTTPUtils.postJson(buildUrl(), body, gsuser, gspass);
-        
-        JSONObject json = (JSONObject) HTTPUtils.json(resp);
-        JSONObject imprt = json.getJSONObject("import");
-        return imprt.getInt("id");
+        JsonNode json = HTTPUtils.json(resp);
+        return json.at("/import/id").asInt();
     }
 
     /**
@@ -233,10 +230,8 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
     public int postNewTaskAsMultiPartForm(int imp, String data) throws Exception {
         String resp = HTTPUtils.postMultipartForm(buildUrl()+"/" + imp + "/tasks", unpack(data), gsuser, gspass);
         
-        JSONObject json = (JSONObject) HTTPUtils.json(resp);
-
-        JSONObject task = json.getJSONObject("task");
-        return task.getInt("id");
+        JsonNode json = HTTPUtils.json(resp);
+        return json.at("/task/id").asInt();
     }
 
     /**
@@ -251,10 +246,8 @@ public class GeoServerRESTImporterManager extends GeoServerRESTAbstractManager {
 
         String resp = HTTPUtils.put(buildUrl()+"/" + imp + "/tasks/" + zip.getName(), zip, MediaType.APPLICATION_ZIP.toString(), gsuser, gspass);
 
-        JSONObject json = (JSONObject) HTTPUtils.json(resp);
-
-        JSONObject task = json.getJSONObject("task");
-        return task.getInt("id");
+        JsonNode json = HTTPUtils.json(resp);
+        return json.at("/task/id").asInt();
     }
     
     //=========================================================================

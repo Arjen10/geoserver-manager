@@ -24,6 +24,7 @@
  */
 package it.geosolutions.geoserver.rest;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import it.geosolutions.geoserver.rest.decoder.RESTCoverage;
 import it.geosolutions.geoserver.rest.decoder.RESTCoverageStore;
 import it.geosolutions.geoserver.rest.decoder.RESTStructuredCoverageGranulesList;
@@ -37,7 +38,6 @@ import it.geosolutions.geoserver.rest.manager.GeoServerRESTImporterManager;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStructuredGridCoverageReaderManager;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStructuredGridCoverageReaderManager.ConfigureCoveragesOption;
 import it.geosolutions.geoserver.rest.manager.GeoServerRESTStyleManager;
-import net.sf.json.JSONObject;
 import org.apache.commons.httpclient.NameValuePair;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
@@ -3205,10 +3205,10 @@ public class GeoServerRESTPublisher {
      *
      * @param i i
      * @param t t
-     * @return {@link JSONObject}
+     * @return {@link JsonNode}
      * @throws Exception Exception
      */
-    public JSONObject getTask(int i, int t) throws Exception {
+    public JsonNode getTask(int i, int t) throws Exception {
         return importerManager.getTask(i, t);
     }
 

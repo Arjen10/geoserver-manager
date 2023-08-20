@@ -3,6 +3,7 @@ package it.geosolutions.geoserver.rest;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import lombok.extern.slf4j.Slf4j;
@@ -52,6 +53,20 @@ public abstract class JacksonUtil {
     public static <T> T parseObjectByTypeReference(String json, TypeReference<T> tr) {
         try {
             return OBJECT_MAPPER.readValue(json, OBJECT_MAPPER.getTypeFactory().constructType(tr));
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    /**
+     * readTree
+     *
+     * @param content 内容
+     * @return {@link JsonNode}
+     */
+    public static JsonNode readTree(String content) {
+        try {
+            return OBJECT_MAPPER.readTree(content);
         } catch (JsonProcessingException e) {
             throw new RuntimeException(e);
         }

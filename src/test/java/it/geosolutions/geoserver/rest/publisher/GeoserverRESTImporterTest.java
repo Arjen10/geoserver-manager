@@ -25,15 +25,15 @@
 
 package it.geosolutions.geoserver.rest.publisher;
 
-import static org.junit.Assert.assertEquals;
+import com.fasterxml.jackson.databind.JsonNode;
 import it.geosolutions.geoserver.rest.GeoserverRESTTest;
-import net.sf.json.JSONObject;
-
 import org.junit.After;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.core.io.ClassPathResource;
+
+import static org.junit.Assert.assertEquals;
 
 /**
  * Testcase for publishing layers on geoserver. 
@@ -64,9 +64,9 @@ public class GeoserverRESTImporterTest extends GeoserverRESTTest {
         int t = publisher.postNewTaskAsMultiPartForm(i, data);
 
         // Check that the Task was actually created and that the CRS has not recognized in this case
-        JSONObject task = publisher.getTask(i, t);
+        JsonNode task = publisher.getTask(i, t);
         //assertEquals("NO_CRS", task.getString("state"));
-        assertEquals("READY", task.getString("state"));
+        assertEquals("READY", task.at("/state").toString());
 
         // Prepare the JSON String instructing the Task about the SRS to use
         String json = "{\"layer\":{\"srs\":\"EPSG:26713\"}}";
@@ -76,8 +76,8 @@ public class GeoserverRESTImporterTest extends GeoserverRESTTest {
 
         // Double check that the Task is in the READY state
         task = publisher.getTask(i, t);
-        assertEquals("READY", task.getString("state"));
-        assertEquals("nurc_10m_populated_places", task.getJSONObject("layer").getJSONObject("style").getString("name"));
+        assertEquals("READY", task.at("/state").toString());
+        assertEquals("nurc_10m_populated_places", task.at("/layer/style/name").toString());
 
         // Prepare the JSON String instructing the Task avout the SLD to use for the new Layer
         json = "{\"layer\":{\"style\":{\"name\": \"point\"}}}"; 
@@ -87,8 +87,8 @@ public class GeoserverRESTImporterTest extends GeoserverRESTTest {
 
         // Double check that the Task is in the READY state and that the Style has been correctly updated
         task = publisher.getTask(i, t);
-        assertEquals("READY", task.getString("state"));
-        assertEquals("point", task.getJSONObject("layer").getJSONObject("style").getString("name"));
+        assertEquals("READY", task.at("/state").toString());
+        assertEquals("point", task.at("/layer/style/name").toString());
 
         // Finally starts the Import ...
         publisher.postImport(i);
